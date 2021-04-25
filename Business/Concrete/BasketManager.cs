@@ -3,6 +3,7 @@ using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -18,6 +19,11 @@ namespace Business.Concrete
         public IDataResult<List<Basket>> GetAll()
         {
             return new SuccessDataResult<List<Basket>>(_basketDal.GetAll());
+        }
+
+        public IDataResult<List<BasketDetailDto>> GetBasketDetails()
+        {
+            return new SuccessDataResult<List<BasketDetailDto>>(_basketDal.GetBasketDetails());
         }
 
         public IResult Add(Basket basket)
