@@ -20,6 +20,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Address>>(_addressDal.GetAll(),Messages.AddressListed);
         }
+        public IDataResult<Address> GetById(int id)
+        {
+            return new SuccessDataResult<Address>(_addressDal.Get(c => c.Id == id));
+        }
 
         public IDataResult<List<Address>> GetAllByUserId(int userId)
         {

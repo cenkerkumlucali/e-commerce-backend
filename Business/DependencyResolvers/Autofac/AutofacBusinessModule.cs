@@ -25,6 +25,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ProductManager>().As<IProductService>();
             builder.RegisterType<EfProductDal>().As<IProductDal>();
             
+            builder.RegisterType<AddressManager>().As<IAddressService>();
+            builder.RegisterType<EfAddressDal>().As<IAddressDal>();
+            
             builder.RegisterType<BrandManager>().As<IBrandService>();
             builder.RegisterType<EfBrandDal>().As<IBrandDal>();
             
@@ -46,6 +49,15 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<OrderStatusManager>().As<IOrderStatusService>();
             builder.RegisterType<EfOrderDal>().As<IOrderDal>();
 
+            builder.RegisterType<PaymentManager>().As<IPaymentService>();
+            builder.RegisterType<EfFakeCardDal>().As<IFakeCardDal>();
+            
+            builder.RegisterType<CustomerCreditCardManager>().As<ICustomerCreditCardService>();
+            builder.RegisterType<EfCustomerCreditCardDal>().As<ICustomerCreditCardDal>();
+            
+            builder.RegisterType<CustomerAddressManager>().As<ICustomerAddressService>();
+            builder.RegisterType<EfCustomerAddressDal>().As<ICustomerAddressDal>();
+
             builder.RegisterType<BasketManager>().As<IBasketService>();
             builder.RegisterType<EfBasketDal>().As<IBasketDal>();
             
@@ -57,6 +69,9 @@ namespace Business.DependencyResolvers.Autofac
             
             builder.RegisterType<ProductImagesManager>().As<IProductImageService>().SingleInstance();
             builder.RegisterType<EfProductImageDal>().As<IProductImageDal>().SingleInstance();
+            
+            builder.RegisterType<BrandImagesManager>().As<IBrandImagesService>().SingleInstance();
+            builder.RegisterType<EfBrandImagesDal>().As<IBrandImagesDal>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

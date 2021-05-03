@@ -63,7 +63,6 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
-
             services.AddDependencyResolvers(new ICoreModule[] {
                new CoreModule()
             });
@@ -82,11 +81,11 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.ConfigureCustomExceptionMiddleware();
+           
 
             app.UseStaticFiles();
 
-            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            app.UseCors(builder=>builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
             app.UseHttpsRedirection();
 
@@ -106,7 +105,7 @@ namespace WebAPI
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger");
             });
-            //23.10 dersteyiz
+            
         }
     }
 }

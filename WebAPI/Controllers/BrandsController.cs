@@ -31,6 +31,18 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        
+        [HttpGet("getbrandsdetail")]
+        public IActionResult GetBrandDetails()
+        {
+            var result = _brandService.GetBrandDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpPost("add")]
         public IActionResult Add(Brand brand)
         {

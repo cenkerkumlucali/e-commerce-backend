@@ -3,6 +3,7 @@ using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -18,6 +19,11 @@ namespace Business.Concrete
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+        }
+
+        public IDataResult<List<BrandDetailDto>> GetBrandDetails()
+        {
+            return new SuccessDataResult<List<BrandDetailDto>>(_brandDal.GetBrandsDetails());
         }
 
         public IResult Add(Brand brand)

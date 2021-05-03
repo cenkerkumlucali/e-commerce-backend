@@ -35,6 +35,36 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getproductdetailbyproductid")]
+        public IActionResult GetProductDetailByProductId(int productId)
+        {
+            var result = _productService.GetProductDetailByProductId(productId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getproductdetailbybrandid")]
+        public IActionResult GetProductDetailByBrandId(int brandId)
+        {
+            var result = _productService.GetProductDetailByBrandId(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getproductdetailbycategoryid")]
+        public IActionResult GetProductDetailByCategoryId(int categoryId)
+        {
+            var result = _productService.GetProductDetailByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpGet("getbycategory")]
         public IActionResult GetByCategory(int categoryId)
         {

@@ -19,6 +19,10 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductsImage> ProductsImages { get; set; }
+        public DbSet<BrandImages> BrandsImages { get; set; }
+        public DbSet<CustomerCreditCard> CustomerCreditCards { get; set; }
+        public DbSet<CustomerAddress> CustomerAddresses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Order> Orders { get; set; }

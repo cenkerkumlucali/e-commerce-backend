@@ -26,6 +26,23 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
 
+        public IDataResult<List<ProductDetailDto>> GetProductDetailByProductId(int productId)
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(
+                _productDal.GetProductDetails(c => c.ProductId == productId));
+        }
+
+        public IDataResult<List<ProductDetailDto>> GetProductDetailByBrandId(int brandId)
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(
+                _productDal.GetProductDetails(c => c.BrandId == brandId));
+        }
+        public IDataResult<List<ProductDetailDto>> GetProductDetailByCategoryId(int categoryId)
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(
+                _productDal.GetProductDetails(c => c.CategoryId == categoryId));
+        }
+
         public IDataResult<List<Product>> GetAllByCategory(int categoryId)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == categoryId),"Ürünler kategorye göre filtrelendi");

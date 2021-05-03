@@ -11,6 +11,7 @@ namespace Entities.Concrete
         public string Name { get; set; }
         public string Code { get; set; }
         public decimal Price { get; set; }
+        public int DiscountRate { get; set; }
         public DateTime CreateDate { get; set; }
         public bool Active { get; set; }
     }
