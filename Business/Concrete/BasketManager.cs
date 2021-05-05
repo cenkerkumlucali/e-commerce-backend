@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -26,22 +27,27 @@ namespace Business.Concrete
             return new SuccessDataResult<List<BasketDetailDto>>(_basketDal.GetBasketDetails());
         }
 
+        public IDataResult<List<BasketDetailDto>> GetBasketDetailsByUserId(int userId)
+        {
+            return new SuccessDataResult<List<BasketDetailDto>>(_basketDal.GetBasketDetails(c=>c.UserId==userId));
+        }
+
         public IResult Add(Basket basket)
         {
             _basketDal.Add(basket);
-            return new SuccessResult();
+            return new SuccessResult(Messages.AddedBasket);
         }
 
         public IResult Delete(Basket basket)
         {
             _basketDal.Delete(basket);
-            return new SuccessResult();
+            return new SuccessResult(Messages.DeletedBasket);
         }
 
         public IResult Update(Basket basket)
         {
             _basketDal.Update(basket);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UpdatedBasket);
         }
     }
 }

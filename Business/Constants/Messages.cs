@@ -68,5 +68,11 @@ namespace Business.Constants
         public static string CarFindeksUpdated="Araba findeks güncellendi";
         public static string FindeksScoreMax="Findeks skoru 1900 den büyük olamaz";
         public static string FindeksScoreSuccesful="Başarılı";
+        public static string AddedBasket="Sepete eklendi";
+        public static string DeletedBasket="Sepetten silindi";
+        public static string UpdatedBasket="Ürün güncellendi";
+        public static string AddedOrder="Sipariş başarılı";
+        public static string DeletedOrder;
+        public static string UpdatedOrder;
     }
 }

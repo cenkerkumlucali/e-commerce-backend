@@ -9,6 +9,7 @@ namespace Business.Abstract
     {
         IDataResult<List<Basket>> GetAll();
         IDataResult<List<BasketDetailDto>> GetBasketDetails();
+        IDataResult<List<BasketDetailDto>> GetBasketDetailsByUserId(int userId);
         IResult Add(Basket basket);
         IResult Delete(Basket basket);
         IResult Update(Basket basket);

@@ -7,6 +7,7 @@ namespace Entities.Concrete
     {
         public long Id { get; set; }
         public int ProductId { get; set; }
+        public int BrandId { get; set; }
         public int UserId { get; set; }
         public int Count { get; set; }
         public DateTime CreateDate { get; set; }

@@ -42,6 +42,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("getbasketdetailsbyuserid")]
+        public IActionResult GetRentalDetailsByUserId(int userId)
+        {
+            var result = _basketService.GetBasketDetailsByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpPost("add")]
         public IActionResult Add(Basket basket)
         {
