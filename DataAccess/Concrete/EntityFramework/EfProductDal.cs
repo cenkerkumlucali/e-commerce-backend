@@ -30,6 +30,7 @@ namespace DataAccess.Concrete.EntityFramework
                         CategoryName = category.Name,
                         BrandName = brand.Name,
                         ProductName = product.Name,
+                        Description = product.Description,
                         Code = product.Code,
                         DiscountRate = product.DiscountRate,
                         Price = product.Price,
