@@ -72,6 +72,12 @@ namespace Business.DependencyResolvers.Autofac
             
             builder.RegisterType<BrandImagesManager>().As<IBrandImagesService>().SingleInstance();
             builder.RegisterType<EfBrandImagesDal>().As<IBrandImagesDal>().SingleInstance();
+            
+            builder.RegisterType<UserCommentManager>().As<IUserCommentService>().SingleInstance();
+            builder.RegisterType<EfUserCommentDal>().As<IUserCommentDal>().SingleInstance();
+            
+            builder.RegisterType<ProductCommentManager>().As<IProductCommentService>().SingleInstance();
+            builder.RegisterType<EfProductCommentDal>().As<IProductCommentDal>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
