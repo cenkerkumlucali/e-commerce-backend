@@ -15,6 +15,42 @@ namespace WebAPI.Controllers
             _productCommentService = productCommentService;
         }
 
+        [HttpGet("getalldetails")]
+        public IActionResult GetAllDetails()
+        {
+            var result = _productCommentService.GetDetail();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        
+        [HttpGet("getalldetailsbyuserid")]
+        public IActionResult GetAllDetailsByUserId(int userId)
+        {
+            var result = _productCommentService.GetDetailByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        
+        [HttpGet("getalldetailsbyproductid")]
+        public IActionResult GetAllDetailsByProductId(int productId)
+        {
+            var result = _productCommentService.GetDetailByProductId(productId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
