@@ -19,23 +19,22 @@ namespace Business.Concrete
         {
             _basketDal = basketDal;
         }
-        [CacheAspect]
+        
         public IDataResult<List<Basket>> GetAll()
         {
             return new SuccessDataResult<List<Basket>>(_basketDal.GetAll());
         }
-        [CacheAspect]
+        
         public IDataResult<List<BasketDetailDto>> GetBasketDetails()
         {
             return new SuccessDataResult<List<BasketDetailDto>>(_basketDal.GetBasketDetails());
         }
-        [CacheAspect]
+        
         public IDataResult<List<BasketDetailDto>> GetBasketDetailsByUserId(int userId)
         {
             return new SuccessDataResult<List<BasketDetailDto>>(_basketDal.GetBasketDetails(c=>c.UserId==userId));
         }
-        [SecuredOperation("admin,product.add")]
-        [CacheRemoveAspect("IBasketService.Get")]
+       
         public IResult Add(Basket basket)
         {
             _basketDal.Add(basket);
