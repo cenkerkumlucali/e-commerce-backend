@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Core.Aspects.Autofac.Caching;
@@ -21,7 +22,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),"Ürünler listelendi.");
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll());
         }
         [CacheAspect]
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
@@ -40,6 +41,17 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(
                 _productDal.GetProductDetails(c => c.BrandId == brandId));
         }
+
+        public IDataResult<List<ProductDetailDto>> GetLimitedProductDetailsByProduct(int limit)
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails().Take(limit).ToList());
+        }
+
+        public IDataResult<List<ProductDetailDto>> GetAllProductDetailsByProductWithPage(int page, int pageSize)
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails().Skip((page-1)*pageSize).Take(pageSize).ToList());
+        }
+
         [CacheAspect]
         public IDataResult<List<ProductDetailDto>> GetProductDetailByCategoryId(int categoryId)
         {
