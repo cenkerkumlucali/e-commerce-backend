@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Business.Concrete
 {
-    public class ProductImagesManager:IProductImageService
+    public class ProductImagesManager:IGenericImagesService<ProductsImage>
     {
         private IProductImageDal _productImageDal;
 
@@ -40,17 +40,19 @@ namespace Business.Concrete
 
         public IResult Delete(ProductsImage productsImage)
         {
-            throw new System.NotImplementedException();
+            _productImageDal.Delete(productsImage);
+            return new SuccessResult();
         }
 
         public IResult Update(IFormFile file, ProductsImage productsImage)
         {
-            throw new System.NotImplementedException();
+            _productImageDal.Update(productsImage);
+            return new SuccessResult();
         }
 
         public IDataResult<ProductsImage> Get(int id)
         {
-            throw new System.NotImplementedException();
+            return new SuccessDataResult<ProductsImage>(_productImageDal.Get(c => c.Id == id));
         }
 
         public IDataResult<List<ProductsImage>> GetAll()
@@ -58,7 +60,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductsImage>>(_productImageDal.GetAll());
         }
 
-        public IDataResult<List<ProductsImage>> GetImagesByProductId(int id)
+        public IDataResult<List<ProductsImage>> GetImagesByTId(int id)
         {
             throw new System.NotImplementedException();
         }

@@ -10,9 +10,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class BrandImagesController : ControllerBase
     {
-        private IBrandImagesService _imagesService;
+        private IGenericImagesService<BrandImages> _imagesService;
 
-        public BrandImagesController(IBrandImagesService brandImageService)
+        public BrandImagesController(IGenericImagesService<BrandImages> brandImageService)
         {
             _imagesService = brandImageService;
         }
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _imagesService.GetImagesByBrandId(id);
+            var result = _imagesService.GetImagesByTId(id);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
         [HttpGet("getimagesbycarid")]
         public IActionResult GetImagesById([FromForm(Name = ("BrandId"))] int carId)
         {
-            var result = _imagesService.GetImagesByBrandId(carId);
+            var result = _imagesService.GetImagesByTId(carId);
             if (result.Success)
             {
                 return Ok(result);

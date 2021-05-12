@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
-    public class BrandImagesManager:IBrandImagesService
+    public class BrandImagesManager:IGenericImagesService<BrandImages>
     {
         private IBrandImagesDal _brandImagesDal;
 
@@ -23,7 +23,8 @@ namespace Business.Concrete
         {
             _brandImagesDal = brandImagesDal;
         }
-        [SecuredOperation("admin,product.add")]
+
+        [SecuredOperation("admin")]
         [CacheRemoveAspect("IBrandImagesService.Get")]
         public IResult Add(IFormFile file, BrandImages brandImages)
         {
@@ -79,7 +80,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<BrandImages>>(_brandImagesDal.GetAll());
         }
         [CacheAspect]
-        public IDataResult<List<BrandImages>> GetImagesByBrandId(int id)
+        public IDataResult<List<BrandImages>> GetImagesByTId(int id)
         {
             IResult result = BusinessRules.Run(CheckIfCarImageNull(id));
 
