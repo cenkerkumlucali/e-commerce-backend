@@ -13,6 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BtkDukkan;Trusted_Connection=true");
         }
+
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Address> Addresses { get; set; }
