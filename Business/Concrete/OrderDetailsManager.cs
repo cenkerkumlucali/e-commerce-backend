@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Business.Abstract;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -14,15 +16,26 @@ namespace Business.Concrete
         {
             _orderDetailsDal = orderDetailsDal;
         }
-
+        [CacheAspect]
         public IDataResult<List<OrderDetails>> GetAll()
         {
             return new SuccessDataResult<List<OrderDetails>>(_orderDetailsDal.GetAll());
         }
-
-        public IResult Add(OrderDetails orderDetails)
+        [CacheAspect]
+        public IDataResult<List<OrderDetailsDto>> GetAllDetails()
         {
-            _orderDetailsDal.Add(orderDetails);
+            return new SuccessDataResult<List<OrderDetailsDto>>(_orderDetailsDal.GetProductDetails());
+        }
+
+        public IDataResult<List<OrderDetailsDto>> GetAllDetailsByUserId(int userId)
+        {
+            return new SuccessDataResult<List<OrderDetailsDto>>(
+                _orderDetailsDal.GetProductDetails(c => c.UserId == userId));
+        }
+
+        public IResult Add(OrderDetails[] orderDetails)
+        {
+            _orderDetailsDal.MultiAdd(orderDetails);
             return new SuccessResult();
         }
 

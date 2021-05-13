@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -8,7 +9,9 @@ namespace Business.Abstract
     {
         
         IDataResult<List<OrderDetails>> GetAll();
-        IResult Add(OrderDetails orderDetails);
+        IDataResult<List<OrderDetailsDto>> GetAllDetails();
+        IDataResult<List<OrderDetailsDto>> GetAllDetailsByUserId(int userId);
+        IResult Add(OrderDetails[] orderDetails);
         IResult Delete(OrderDetails orderDetails);
         IResult Update(OrderDetails orderDetails);
     }

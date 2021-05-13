@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(Order order)
+        public IActionResult Add(Order orders)
         {
-            var result = _orderService.Add(order);
+            var result = _orderService.Add(orders);
             if (result.Success)
             {
                 return Ok(result);

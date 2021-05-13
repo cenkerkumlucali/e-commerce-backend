@@ -64,10 +64,10 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
-            builder.RegisterType<ProductImagesManager>().As<IGenericImagesService<ProductsImage>>().SingleInstance();
+            builder.RegisterType<ProductImagesManager>().As<IProductImagesService>().SingleInstance();
             builder.RegisterType<EfProductImageDal>().As<IProductImageDal>().SingleInstance();
 
-            builder.RegisterType<BrandImagesManager>().As<IGenericImagesService<BrandImages>>().SingleInstance();
+            builder.RegisterType<BrandImagesManager>().As<IBrandImagesService>().SingleInstance();
             builder.RegisterType<EfBrandImagesDal>().As<IBrandImagesDal>().SingleInstance();
 
             builder.RegisterType<UserCommentManager>().As<IUserCommentService>().SingleInstance();

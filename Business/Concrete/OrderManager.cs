@@ -21,9 +21,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Order>>(_orderDal.GetAll());
         }
 
-        public IResult Add(Order order)
+        public IResult Add(Order orders)
         {
-            _orderDal.Add(order);
+            _orderDal.Add(orders);
             return new SuccessResult(Messages.AddedOrder);
         }
 

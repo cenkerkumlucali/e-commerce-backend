@@ -7,7 +7,7 @@ namespace Business.Abstract
     public interface IOrderService
     {
         IDataResult<List<Order>> GetAll();
-        IResult Add(Order order);
+        IResult Add(Order orders);
         IResult Delete(Order order);
         IResult Update(Order order);
     }

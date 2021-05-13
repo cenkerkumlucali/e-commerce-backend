@@ -31,8 +31,30 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("getalldetails")]
+        public IActionResult GetAllDetails()
+        {
+            var result = _orderDetailsService.GetAllDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        [HttpGet("getalldetailsbyuserid")]
+        public IActionResult GetAllDetailsByUserId(int userId)
+        {
+            var result = _orderDetailsService.GetAllDetailsByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpPost("add")]
-        public IActionResult Add(OrderDetails orderDetails)
+        public IActionResult Add(OrderDetails[] orderDetails)
         {
             var result = _orderDetailsService.Add(orderDetails);
             if (result.Success)
