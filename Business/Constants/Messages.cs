@@ -44,5 +44,7 @@ namespace Business.Constants
         public static string AddedComment="Yorum başarılı";
         public static string DeletedComment="Yorum silindi";
         public static string UpdatedComment="Yorum güncellendi";
+        public static string ProductDeleted="Ürün silindi";
+        public static string ProductUpdated="Ürün güncellendi";
     }
 }
