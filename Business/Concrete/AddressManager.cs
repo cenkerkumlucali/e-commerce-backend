@@ -2,7 +2,9 @@
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -16,6 +18,30 @@ namespace Business.Concrete
         public AddressManager(IAddressDal addressDal)
         {
             _addressDal = addressDal;
+        }
+
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IAddressService.Get")]
+        [ValidationAspect(typeof(AddressValidator))]
+        public IResult Add(Address address)
+        {
+            _addressDal.Add(address);
+            return new SuccessResult(Messages.AddressAdded);
+        }
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IAddressService.Get")]
+        public IResult Delete(Address address)
+        {
+            _addressDal.Delete(address);
+            return new SuccessResult(Messages.AddressDeleted);
+        }
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IAddressService.Get")]
+        [ValidationAspect(typeof(AddressValidator))]
+        public IResult Update(Address address)
+        {
+            _addressDal.Update(address);
+            return new SuccessResult(Messages.AddressUpdated);
         }
         [CacheAspect]
         public IDataResult<List<Address>> GetAll()
@@ -38,25 +64,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Address>>(_addressDal.GetAll(p => p.CityId == cityId),
                 Messages.AddressFilterCityId);
         }
-        [SecuredOperation("admin,address.add")]
-        [CacheRemoveAspect("IAddressService.Get")]
-        public IResult Add(Address address)
-        {
-            _addressDal.Add(address);
-            return new SuccessResult(Messages.AddressAdded);
-        }
-
-        public IResult Delete(Address address)
-        {
-            _addressDal.Delete(address);
-            return new SuccessResult(Messages.AddressDeleted);
-        }
-        [SecuredOperation("admin,address.add")]
-        [CacheRemoveAspect("IAddressService.Get")]
-        public IResult Update(Address address)
-        {
-            _addressDal.Update(address);
-            return new SuccessResult(Messages.AddressUpdated);
-        }
+        
+       
     }
 }

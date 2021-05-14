@@ -9,10 +9,13 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
+using Business.BusinessAspects.Autofac;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
-    public class ProductImagesManager:IGenericImagesService<ProductsImage>
+    public class ProductImagesManager:IProductImagesService
     {
         private IProductImageDal _productImageDal;
 
@@ -20,7 +23,8 @@ namespace Business.Concrete
         {
             _productImageDal = productImageDal;
         }
-
+        [SecuredOperation("admin")]
+        [ValidationAspect(typeof(ProductImagesValidator))]
         public IResult Add(IFormFile file, ProductsImage productsImage)
         {
             var imageCount = _productImageDal.GetAll(c => c.ProductId == productsImage.ProductId).Count;
@@ -43,7 +47,8 @@ namespace Business.Concrete
             _productImageDal.Delete(productsImage);
             return new SuccessResult();
         }
-
+        [SecuredOperation("admin")]
+        [ValidationAspect(typeof(ProductImagesValidator))]
         public IResult Update(IFormFile file, ProductsImage productsImage)
         {
             _productImageDal.Update(productsImage);

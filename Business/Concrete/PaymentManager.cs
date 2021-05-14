@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,13 +20,20 @@ namespace Business.Concrete
         {
             _fakeCardDal = fakeCardDal;
         }
-
+        [SecuredOperation("admin")]
+        [ValidationAspect(typeof(PaymentValidator))]
         public IResult Add(Payment fakeCard)
         {
             _fakeCardDal.Add(fakeCard);
             return new SuccessResult();
         }
-
+        [SecuredOperation("admin")]
+        [ValidationAspect(typeof(PaymentValidator))]
+        public IResult Update(Payment fakeCard)
+        {
+            _fakeCardDal.Update(fakeCard);
+            return new SuccessResult();
+        }
         public IResult Delete(Payment fakeCard)
         {
             _fakeCardDal.Delete(fakeCard);
@@ -57,11 +67,6 @@ namespace Business.Concrete
 
             return new SuccessResult();
         }
-
-        public IResult Update(Payment fakeCard)
-        {
-            _fakeCardDal.Update(fakeCard);
-            return new SuccessResult();
-        }
+       
     }
 }

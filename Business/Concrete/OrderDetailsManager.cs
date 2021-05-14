@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -15,6 +18,26 @@ namespace Business.Concrete
         public OrderDetailsManager(IOrderDetailsDal orderDetailsDal)
         {
             _orderDetailsDal = orderDetailsDal;
+        }
+        [SecuredOperation("admin")]
+        [ValidationAspect(typeof(OrderDetailsValidator))]
+        public IResult Add(OrderDetails[] orderDetails)
+        {
+            _orderDetailsDal.MultiAdd(orderDetails);
+            return new SuccessResult();
+        }
+
+        public IResult Delete(OrderDetails orderDetails)
+        {
+            _orderDetailsDal.Delete(orderDetails);
+            return new SuccessResult();
+        }
+        [SecuredOperation("admin")]
+        [ValidationAspect(typeof(OrderDetailsValidator))]
+        public IResult Update(OrderDetails orderDetails)
+        {
+            _orderDetailsDal.Update(orderDetails);
+            return new SuccessResult();
         }
         [CacheAspect]
         public IDataResult<List<OrderDetails>> GetAll()
@@ -31,24 +54,6 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<OrderDetailsDto>>(
                 _orderDetailsDal.GetProductDetails(c => c.UserId == userId));
-        }
-
-        public IResult Add(OrderDetails[] orderDetails)
-        {
-            _orderDetailsDal.MultiAdd(orderDetails);
-            return new SuccessResult();
-        }
-
-        public IResult Delete(OrderDetails orderDetails)
-        {
-            _orderDetailsDal.Delete(orderDetails);
-            return new SuccessResult();
-        }
-
-        public IResult Update(OrderDetails orderDetails)
-        {
-            _orderDetailsDal.Update(orderDetails);
-            return new SuccessResult();
         }
     }
 }

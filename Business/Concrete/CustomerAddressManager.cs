@@ -1,8 +1,13 @@
 ﻿using System.Collections.Generic;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -14,7 +19,29 @@ namespace Business.Concrete
         {
             _customerAddressDal = customerAddressDal;
         }
-
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("ICustomerAddressService")]
+        [ValidationAspect(typeof(CustomerAddressValidator))]
+        public IResult Add(CustomerAddress customerAddress)
+        {
+            _customerAddressDal.Add(customerAddress);
+            return new SuccessResult();
+        }
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("ICustomerAddressService")]
+        public IResult Delete(CustomerAddress customerAddress)
+        {
+            _customerAddressDal.Delete(customerAddress);
+            return new SuccessResult();
+        }
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("ICustomerAddressService")]
+        [ValidationAspect(typeof(CustomerAddressValidator))]
+        public IResult Update(CustomerAddress customerAddress)
+        {
+            _customerAddressDal.Update(customerAddress);
+            return new SuccessResult();
+        }
         public IDataResult<List<CustomerAddress>> GetAll()
         {
             return new SuccessDataResult<List<CustomerAddress>>(_customerAddressDal.GetAll());
@@ -25,22 +52,22 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CustomerAddress>>(_customerAddressDal.GetAll(c=>c.CustomerId==customerId));
         }
 
-        public IResult Add(CustomerAddress customerAddress)
+        public IDataResult<List<CustomerAddressDto>>GetAllDatails()
         {
-           _customerAddressDal.Add(customerAddress);
-           return new SuccessResult();
+            return new SuccessDataResult<List<CustomerAddressDto>>(_customerAddressDal.GetCustomerAddressDetail());
         }
 
-        public IResult Delete(CustomerAddress customerAddress)
+        public IDataResult<List<CustomerAddressDto>> GetDetailsByCustomerId(int customerId)
         {
-            _customerAddressDal.Delete(customerAddress);
-            return new SuccessResult();
+            return new SuccessDataResult<List<CustomerAddressDto>>(
+                _customerAddressDal.GetCustomerAddressDetail(c => c.CustomerId == customerId));
         }
 
-        public IResult Update(CustomerAddress customerAddress)
+        public IDataResult<List<CustomerAddressDto>> GetDetailsByAddressId(int addressId)
         {
-            _customerAddressDal.Update(customerAddress);
-            return new SuccessResult();
+            return new SuccessDataResult<List<CustomerAddressDto>>(
+                _customerAddressDal.GetCustomerAddressDetail(c => c.AddressId == addressId));
         }
+      
     }
 }

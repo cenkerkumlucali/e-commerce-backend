@@ -2,6 +2,8 @@
 using System.Linq;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
@@ -18,6 +20,29 @@ namespace Business.Concrete
         public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
+        }
+        [SecuredOperation("admin,product.add")]
+        [CacheRemoveAspect("IProductService.Get")]
+        [ValidationAspect(typeof(ProductValidator))]
+        public IResult Add(Product product)
+        {
+            _productDal.Add(product);
+            return new SuccessResult(Messages.ProductAdded);
+        }
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IProductService.Get")]
+        public IResult Delete(Product product)
+        {
+            _productDal.Delete(product);
+            return new SuccessResult(Messages.ProductDeleted);
+        }
+        [SecuredOperation("admin")]
+        [CacheRemoveAspect("IProductService.Get")]
+        [ValidationAspect(typeof(ProductValidator))]
+        public IResult Update(Product product)
+        {
+            _productDal.Update(product);
+            return new SuccessResult(Messages.ProductUpdated);
         }
         [CacheAspect]
         public IDataResult<List<Product>> GetAll()
@@ -63,24 +88,6 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == categoryId),"Ürünler kategorye göre filtrelendi");
         }
-        [SecuredOperation("admin,product.add")]
-        [CacheRemoveAspect("IProductService.Get")]
-        public IResult Add(Product product)
-        {
-            _productDal.Add(product);
-            return new SuccessResult("Ürün eklendi");
-        }
-
-        public IResult Delete(Product product)
-        {
-            _productDal.Delete(product);
-            return new SuccessResult("Ürün silindi");
-        }
-        [CacheRemoveAspect("IProductService.Get")]
-        public IResult Update(Product product)
-        {
-            _productDal.Update(product);
-            return new SuccessResult("Ürün güncellendi");
-        }
+       
     }
 }

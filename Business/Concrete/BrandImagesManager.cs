@@ -5,7 +5,9 @@ using System.Linq;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers;
 using Core.Utilities.Results;
@@ -15,7 +17,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
-    public class BrandImagesManager:IGenericImagesService<BrandImages>
+    public class BrandImagesManager:IBrandImagesService
     {
         private IBrandImagesDal _brandImagesDal;
 
@@ -26,6 +28,7 @@ namespace Business.Concrete
 
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IBrandImagesService.Get")]
+        [ValidationAspect(typeof(BrandImagesValidator))]
         public IResult Add(IFormFile file, BrandImages brandImages)
         {
             var imageResult = FileHelper.Upload(file);
@@ -52,6 +55,7 @@ namespace Business.Concrete
             return new SuccessResult("Image was deleted successfully");
         }
         [CacheRemoveAspect("IBrandImagesService.Get")]
+        [ValidationAspect(typeof(BrandImagesValidator))]
         public IResult Update(IFormFile file, BrandImages brandImages)
         {
             var isImage = _brandImagesDal.Get(c => c.Id == brandImages.Id);
