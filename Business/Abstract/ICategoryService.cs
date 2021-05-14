@@ -8,6 +8,7 @@ namespace Business.Abstract
     {
         IDataResult<List<Category>> GetAll();
         IResult Add(Category category);
+        IResult MultiAdd(Category[] categories);
         IResult Delete(Category category);
         IResult Update(Category category);
     }
