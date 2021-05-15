@@ -47,7 +47,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfOrderDal>().As<IOrderDal>();
 
             builder.RegisterType<PaymentManager>().As<IPaymentService>();
-            builder.RegisterType<EfFakeCardDal>().As<IFakeCardDal>();
+            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>();
 
             builder.RegisterType<CustomerCreditCardManager>().As<ICustomerCreditCardService>();
             builder.RegisterType<EfCustomerCreditCardDal>().As<ICustomerCreditCardDal>();
@@ -75,6 +75,9 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<ProductCommentManager>().As<IProductCommentService>().SingleInstance();
             builder.RegisterType<EfProductCommentDal>().As<IProductCommentDal>().SingleInstance();
+
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>().SingleInstance();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
