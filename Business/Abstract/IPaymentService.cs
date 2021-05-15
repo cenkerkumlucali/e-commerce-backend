@@ -8,7 +8,7 @@ namespace Business.Abstract
 {
     public interface IPaymentService
     {
-        IResult Add(Payment fakeCard);
+        IDataResult<int> Add(Payment fakeCard);
         IResult Delete(Payment fakeCard);
         IResult Update(Payment fakeCard);
         IDataResult<List<Payment>> GetAll();

@@ -7,6 +7,7 @@ using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -18,6 +19,7 @@ namespace Business.Concrete
         {
             _customerCreditCardDal = customerCreditCardDal;
         }
+
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(CustomerCreditCardValidator))]
         public IResult Add(CustomerCreditCard customerCreditCard)
@@ -49,6 +51,12 @@ namespace Business.Concrete
                 _customerCreditCardDal.GetAll(c => c.CustomerId == customerId));
         }
 
-       
+
+        public IDataResult<List<CustomerPaymentDetailDto>> GetDetailsByCustomerId(int customerId)
+        {
+            return new SuccessDataResult<List<CustomerPaymentDetailDto>>(
+                _customerCreditCardDal.GetDetails(c => c.UserId == customerId));
+        }
+
     }
 }

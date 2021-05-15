@@ -14,18 +14,18 @@ namespace Business.Concrete
 {
     public class PaymentManager : IPaymentService
     {
-        IFakeCardDal _fakeCardDal;
+        IPaymentDal _fakeCardDal;
 
-        public PaymentManager(IFakeCardDal fakeCardDal)
+        public PaymentManager(IPaymentDal fakeCardDal)
         {
             _fakeCardDal = fakeCardDal;
         }
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [ValidationAspect(typeof(PaymentValidator))]
-        public IResult Add(Payment fakeCard)
+        public IDataResult<int> Add(Payment fakeCard)
         {
             _fakeCardDal.Add(fakeCard);
-            return new SuccessResult();
+            return new SuccessDataResult<int>(fakeCard.Id,Messages.PaymentAdded);
         }
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(PaymentValidator))]
