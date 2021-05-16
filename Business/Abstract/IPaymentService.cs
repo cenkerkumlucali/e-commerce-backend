@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    public interface IPaymentService
+    public interface IPaymentService:IGenericCrudOperationService<Payment>
     {
-        IDataResult<int> Add(Payment fakeCard);
-        IResult Delete(Payment fakeCard);
-        IResult Update(Payment fakeCard);
-        IDataResult<List<Payment>> GetAll();
+        IDataResult<int> GetByIdAdd(Payment fakeCard);
         IDataResult<Payment> GetById(int id);
         IDataResult<List<Payment>> GetByCardNumber(string cardNumber);
         IResult IsCardExist(Payment fakeCard);

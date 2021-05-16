@@ -25,5 +25,17 @@ namespace Business.Concrete
             _userOperationClaimDal.Add(userOperationClaim);
             return new SuccessResult();
         }
+
+        public IResult Delete(UserOperationClaim userOperationClaim)
+        {
+            _userOperationClaimDal.Delete(userOperationClaim);
+            return new SuccessResult();
+        }
+
+        public IResult Update(UserOperationClaim userOperationClaim)
+        {
+            _userOperationClaimDal.Update(userOperationClaim);
+            return new SuccessResult();
+        }
     }
 }

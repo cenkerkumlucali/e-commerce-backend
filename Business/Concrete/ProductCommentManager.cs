@@ -55,5 +55,17 @@ namespace Business.Concrete
             _productCommentDal.Add(productComment);
             return new SuccessResult();
         }
+
+        public IResult Delete(ProductComment productComment)
+        {
+            _productCommentDal.Delete(productComment);
+            return new SuccessResult();
+        }
+
+        public IResult Update(ProductComment productComment)
+        {
+            _productCommentDal.Delete(productComment);
+            return new SuccessResult();
+        }
     }
 }

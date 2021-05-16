@@ -24,7 +24,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Basket>>(_basketDal.GetAll());
         }
-        
+
         public IDataResult<List<BasketDetailDto>> GetBasketDetails()
         {
             return new SuccessDataResult<List<BasketDetailDto>>(_basketDal.GetBasketDetails());

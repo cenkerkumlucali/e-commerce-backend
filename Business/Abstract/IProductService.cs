@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
+using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
 using Entities.DTOs;
 
 namespace Business.Abstract
 {
-    public interface IProductService
+    public interface IProductService:IGenericCrudOperationService<Product>
     {
-        IDataResult<List<Product>> GetAll();
         IDataResult<List<ProductDetailDto>> GetProductDetails();
         IDataResult<List<ProductDetailDto>> GetProductDetailByCategoryId(int categoryId);
         IDataResult<List<ProductDetailDto>> GetProductDetailByProductId(int productId);
@@ -15,9 +15,6 @@ namespace Business.Abstract
         IDataResult<List<ProductDetailDto>> GetLimitedProductDetailsByProduct(int limit);
         IDataResult<List<ProductDetailDto>> GetAllProductDetailsByProductWithPage(int page, int pageSize);
         IDataResult<List<Product>> GetAllByCategory(int categoryId);
-        IResult Add(Product product);
-        IResult Delete(Product product);
-        IResult Update(Product product);
 
     }
 }

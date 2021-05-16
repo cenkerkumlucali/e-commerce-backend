@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -20,23 +21,29 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Order>>(_orderDal.GetAll());
         }
-
-        public IResult Add(Order orders)
+        [SecuredOperation("admin,user")]
+        public IDataResult<long> GetByIdAdd(Order orders)
         {
             _orderDal.Add(orders);
-            return new SuccessResult(Messages.AddedOrder);
+            return new SuccessDataResult<long>(orders.Id, Messages.AddedOrder);
         }
-
+        [SecuredOperation("admin,user")]
         public IResult Delete(Order order)
         {
             _orderDal.Delete(order);
             return new SuccessResult(Messages.DeletedOrder);
         }
-
+        [SecuredOperation("admin,user")]
         public IResult Update(Order order)
         {
             _orderDal.Update(order);
             return new SuccessResult(Messages.UpdatedOrder);
+        }
+        [SecuredOperation("admin,user")]
+        public IResult Add(Order order)
+        {
+            _orderDal.Add(order);
+            return new SuccessResult();
         }
     }
 }

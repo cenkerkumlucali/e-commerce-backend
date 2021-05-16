@@ -8,17 +8,20 @@ using Entities.DTOs;
 
 namespace Business.Concrete
 {
-    public class AuthManager:IAuthService
-    { private IUserService _userService;
+    public class AuthManager : IAuthService
+    {
+        private IUserService _userService;
         private ITokenHelper _tokenHelper;
+        private IUserOperationClaimService _userOperationClaimService;
 
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, IUserOperationClaimService userOperationClaimService)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
+            _userOperationClaimService = userOperationClaimService;
         }
 
-         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
+        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -32,6 +35,7 @@ namespace Business.Concrete
                 Status = true
             };
             _userService.Add(user);
+            _userOperationClaimService.Add(new UserOperationClaim{OperationClaimId = 2,UserId = user.Id});
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
 
@@ -61,9 +65,9 @@ namespace Business.Concrete
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
-            var claims =_userService.GetClaims(user);
+            var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
-            return new SuccessDataResult<AccessToken>(accessToken,Messages.AccessTokenCreated);
+            return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
     }
 }

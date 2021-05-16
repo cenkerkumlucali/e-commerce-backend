@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
+using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    public interface IOrderStatusService
+    public interface IOrderStatusService:IGenericCrudOperationService<OrderStatus>
     {
-        IDataResult<List<OrderStatus>> GetAll();
-        IResult Add(OrderStatus orderStatus);
-        IResult Delete(OrderStatus orderStatus);
-        IResult Update(OrderStatus orderStatus);
+      
     }
 }

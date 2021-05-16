@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
+using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
 using Entities.DTOs;
 
 namespace Business.Abstract
 {
-    public interface IOrderDetailsService
+    public interface IOrderDetailsService:IGenericCrudOperationService<OrderDetails>
     {
         
-        IDataResult<List<OrderDetails>> GetAll();
         IDataResult<List<OrderDetailsDto>> GetAllDetails();
         IDataResult<List<OrderDetailsDto>> GetAllDetailsByUserId(int userId);
-        IResult Add(OrderDetails[] orderDetails);
-        IResult Delete(OrderDetails orderDetails);
-        IResult Update(OrderDetails orderDetails);
+        IResult MultiAdd(OrderDetails[] orderDetails);
     }
 }

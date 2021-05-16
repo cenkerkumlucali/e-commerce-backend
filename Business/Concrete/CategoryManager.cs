@@ -23,6 +23,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
         }
+
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICategoryService.Get")]
         [ValidationAspect(typeof(CategoryValidator))]

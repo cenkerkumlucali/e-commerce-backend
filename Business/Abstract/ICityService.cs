@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
+using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    public interface ICityService
+    public interface ICityService:IGenericCrudOperationService<City>
     {
-        IDataResult<List<City>> GetAll();
-        IResult Add(City city);
-        IResult Delete(City city);
-        IResult Update(City city);
+
     }
 }

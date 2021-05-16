@@ -14,52 +14,59 @@ namespace Business.Concrete
 {
     public class PaymentManager : IPaymentService
     {
-        IPaymentDal _fakeCardDal;
+        IPaymentDal _paymentDal;
 
-        public PaymentManager(IPaymentDal fakeCardDal)
+        public PaymentManager(IPaymentDal paymentDal)
         {
-            _fakeCardDal = fakeCardDal;
+            _paymentDal = paymentDal;
         }
         //[SecuredOperation("admin")]
         [ValidationAspect(typeof(PaymentValidator))]
-        public IDataResult<int> Add(Payment fakeCard)
+        public IDataResult<int> GetByIdAdd(Payment payment)
         {
-            _fakeCardDal.Add(fakeCard);
-            return new SuccessDataResult<int>(fakeCard.Id,Messages.PaymentAdded);
+            _paymentDal.Add(payment);
+            return new SuccessDataResult<int>(payment.Id,Messages.PaymentAdded);
         }
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(PaymentValidator))]
-        public IResult Update(Payment fakeCard)
+        public IResult Update(Payment payment)
         {
-            _fakeCardDal.Update(fakeCard);
+            _paymentDal.Update(payment);
             return new SuccessResult();
         }
-        public IResult Delete(Payment fakeCard)
+
+        public IResult Add(Payment payment)
         {
-            _fakeCardDal.Delete(fakeCard);
+            _paymentDal.Add(payment);
+            return new SuccessResult();
+        }
+
+        public IResult Delete(Payment payment)
+        {
+            _paymentDal.Delete(payment);
             return new SuccessResult();
         }
 
         public IDataResult<List<Payment>> GetAll()
         {
-            return new SuccessDataResult<List<Payment>>(_fakeCardDal.GetAll());
+            return new SuccessDataResult<List<Payment>>(_paymentDal.GetAll());
         }
 
         public IDataResult<Payment> GetById(int id)
         {
-            return new SuccessDataResult<Payment>(_fakeCardDal.Get(c => c.Id == id));
+            return new SuccessDataResult<Payment>(_paymentDal.Get(c => c.Id == id));
         }
 
         public IDataResult<List<Payment>> GetByCardNumber(string cardNumber)
         {
-            return new SuccessDataResult<List<Payment>>(_fakeCardDal.GetAll(c => c.CardNumber == cardNumber));
+            return new SuccessDataResult<List<Payment>>(_paymentDal.GetAll(c => c.CardNumber == cardNumber));
         }
 
-        public IResult IsCardExist(Payment fakeCard)
+        public IResult IsCardExist(Payment payment)
         {
-            var result = _fakeCardDal.Get(c =>
-                c.NameOnTheCard == fakeCard.NameOnTheCard && c.CardNumber == fakeCard.CardNumber &&
-                c.CardCvv == fakeCard.CardCvv);
+            var result = _paymentDal.Get(c =>
+                c.NameOnTheCard == payment.NameOnTheCard && c.CardNumber == payment.CardNumber &&
+                c.CardCvv == payment.CardCvv);
             if (result == null)
             {
                 return new ErrorResult();

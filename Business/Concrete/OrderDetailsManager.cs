@@ -21,9 +21,15 @@ namespace Business.Concrete
         }
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(OrderDetailsValidator))]
-        public IResult Add(OrderDetails[] orderDetails)
+        public IResult MultiAdd(OrderDetails[] orderDetails)
         {
             _orderDetailsDal.MultiAdd(orderDetails);
+            return new SuccessResult();
+        }
+
+        public IResult Add(OrderDetails order)
+        {
+            _orderDetailsDal.Add(order);
             return new SuccessResult();
         }
 

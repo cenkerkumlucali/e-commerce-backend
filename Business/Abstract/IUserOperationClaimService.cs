@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using Business.Generics;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 
 namespace Business.Abstract
 {
-    public interface IUserOperationClaimService
+    public interface IUserOperationClaimService:IGenericCrudOperationService<UserOperationClaim>
     {
-        IDataResult<List<UserOperationClaim>> GetAll();
-        IResult Add(UserOperationClaim userOperationClaim);
+
     }
 }

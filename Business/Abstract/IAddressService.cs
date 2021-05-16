@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
+using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    public interface IAddressService
+    public interface IAddressService:IGenericCrudOperationService<Address>
     {
-        IDataResult<List<Address>> GetAll();
         IDataResult<Address> GetById(int id);
         IDataResult<List<Address>> GetAllByUserId(int userId);
         IDataResult<List<Address>> GetAllByCityId(int cityId);
-        IResult Add(Address address);
-        IResult Delete(Address address);
-        IResult Update(Address address);
     }
 }

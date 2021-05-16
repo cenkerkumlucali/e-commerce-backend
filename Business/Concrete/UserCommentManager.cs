@@ -47,11 +47,6 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<UserComment>>(_userCommentDal.GetAll(c => c.UserId == userId));
         }
-        [CacheAspect]
-        public IDataResult<List<UserComment>> GetAllByProductId(int productId)
-        {
-            return new SuccessDataResult<List<UserComment>>(_userCommentDal.GetAll(c => c.ProductId == productId));
-        }
-       
+
     }
 }
