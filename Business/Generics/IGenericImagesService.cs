@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Core.Utilities.Results;
-using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 
-namespace Business.Abstract
+namespace Business.Generics
 {
     public interface IGenericImagesService<T>
     {
