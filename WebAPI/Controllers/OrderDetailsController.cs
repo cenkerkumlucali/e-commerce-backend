@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add(OrderDetails[] orderDetails)
         {
-            var result = _orderDetailsService.Add(orderDetails);
+            var result = _orderDetailsService.MultiAdd(orderDetails);
             if (result.Success)
             {
                 return Ok(result);

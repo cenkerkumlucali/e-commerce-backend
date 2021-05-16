@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add(Payment payment)
         {
-            var result = _paymentService.Add(payment);
+            var result = _paymentService.GetByIdAdd(payment);
             if (result.Success)
             {
                 return Ok(result);
