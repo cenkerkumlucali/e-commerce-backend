@@ -46,5 +46,10 @@ namespace Business.Constants
         public static string UpdatedComment="Yorum güncellendi";
         public static string ProductDeleted="Ürün silindi";
         public static string ProductUpdated="Ürün güncellendi";
+        public static string PaymentAdded="Kredi kartı eklendi";
+        public static string DeletedCustomerCreditCard="Kayıtlı kart silindi";
+        public static string FavoriteAdded="Ürün beğenildi";
+        public static string FavoriteDeleted="Beğenilerinizden kaldırıldı";
+        public static string FavoriteUpdated="Beğeni güncellendi";
     }
 }
