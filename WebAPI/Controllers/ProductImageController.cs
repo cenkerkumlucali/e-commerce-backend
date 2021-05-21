@@ -10,9 +10,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductImageController : ControllerBase
     {
-        private IGenericImagesService<ProductsImage> _imagesService;
+        private IProductImagesService _imagesService;
 
-        public ProductImageController(IGenericImagesService<ProductsImage> productImageService)
+        public ProductImageController(IProductImagesService productImageService)
         {
             _imagesService = productImageService;
         }
