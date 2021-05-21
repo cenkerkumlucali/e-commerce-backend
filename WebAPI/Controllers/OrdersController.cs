@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add(Order orders)
         {
-            var result = _orderService.Add(orders);
+            var result = _orderService.GetByIdAdd(orders);
             if (result.Success)
             {
                 return Ok(result);

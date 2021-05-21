@@ -31,7 +31,7 @@ namespace Business.Concrete
         public IResult Delete(CustomerCreditCard customerCreditCard)
         {
             _customerCreditCardDal.Delete(customerCreditCard);
-            return new SuccessResult();
+            return new SuccessResult(Messages.DeletedCustomerCreditCard);
         }
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(CustomerCreditCardValidator))]

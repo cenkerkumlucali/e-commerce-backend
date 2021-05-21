@@ -36,16 +36,7 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
-        [HttpGet("getallbyproductid")]
-        public IActionResult GetAllByProductId(int productId)
-        {
-            var result = _userCommentService.GetAllByProductId(productId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
+       
         [HttpPost("add")]
         public IActionResult Add(UserComment userComment)
         {

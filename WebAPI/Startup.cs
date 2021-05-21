@@ -82,6 +82,7 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
            
+            app.ConfigureCustomExceptionMiddleware();
 
             app.UseStaticFiles();
 

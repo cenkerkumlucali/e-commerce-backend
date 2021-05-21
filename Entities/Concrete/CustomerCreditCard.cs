@@ -6,7 +6,8 @@ namespace Entities.Concrete
     public class CustomerCreditCard:IEntity
     {
         [Key]
+        public int CardId { get; set; }
         public int CustomerId { get; set; }
-        public int CardId { get; set; }  
+       
     }
 }

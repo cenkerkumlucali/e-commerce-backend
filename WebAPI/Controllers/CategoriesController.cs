@@ -42,6 +42,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpPost("multiadd")]
+        public IActionResult MultiAdd(Category[] categories)
+        {
+            var result = _categoryService.MultiAdd(categories);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpPost("delete")]
         public IActionResult Delete(Category category)
         {

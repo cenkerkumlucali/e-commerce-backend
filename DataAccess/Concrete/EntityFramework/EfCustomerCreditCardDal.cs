@@ -20,7 +20,7 @@ namespace DataAccess.Concrete.EntityFramework
                     join user in context.Users on customerCreditCard.CustomerId equals user.Id
                     select new CustomerPaymentDetailDto()
                     {
-                        PaymentId = customerCreditCard.CardId,
+                        CardId = customerCreditCard.CardId,
                         UserId = user.Id,
                         NameOnTheCard = payment.NameOnTheCard,
                         CardCvv = payment.CardCvv,
