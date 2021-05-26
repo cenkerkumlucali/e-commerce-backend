@@ -3,7 +3,9 @@ using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,7 +21,7 @@ namespace Business.Concrete
         {
             _customerCreditCardDal = customerCreditCardDal;
         }
-
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(CustomerCreditCardValidator))]
         public IResult Add(CustomerCreditCard customerCreditCard)
@@ -27,12 +29,14 @@ namespace Business.Concrete
             _customerCreditCardDal.Add(customerCreditCard);
             return new SuccessResult();
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         public IResult Delete(CustomerCreditCard customerCreditCard)
         {
             _customerCreditCardDal.Delete(customerCreditCard);
             return new SuccessResult(Messages.DeletedCustomerCreditCard);
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(CustomerCreditCardValidator))]
         public IResult Update(CustomerCreditCard customerCreditCard)

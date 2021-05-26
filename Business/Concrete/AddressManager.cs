@@ -4,7 +4,9 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,7 +21,7 @@ namespace Business.Concrete
         {
             _addressDal = addressDal;
         }
-
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IAddressService.Get")]
         [ValidationAspect(typeof(AddressValidator))]
@@ -28,6 +30,7 @@ namespace Business.Concrete
             _addressDal.Add(address);
             return new SuccessResult(Messages.AddressAdded);
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IAddressService.Get")]
         public IResult Delete(Address address)
@@ -35,6 +38,7 @@ namespace Business.Concrete
             _addressDal.Delete(address);
             return new SuccessResult(Messages.AddressDeleted);
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IAddressService.Get")]
         [ValidationAspect(typeof(AddressValidator))]

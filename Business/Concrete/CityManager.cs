@@ -3,7 +3,9 @@ using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,7 +21,7 @@ namespace Business.Concrete
             _cityDal = cityDal;
         }
 
-
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICityService.Get")]
         [ValidationAspect(typeof(CityValidator))]
@@ -34,6 +36,7 @@ namespace Business.Concrete
             _cityDal.Delete(city);
             return new SuccessResult();
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICityService.Get")]
         [ValidationAspect(typeof(CityValidator))]

@@ -3,7 +3,9 @@ using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,6 +21,7 @@ namespace Business.Concrete
         {
             _customerAddressDal = customerAddressDal;
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICustomerAddressService")]
         [ValidationAspect(typeof(CustomerAddressValidator))]
@@ -27,6 +30,7 @@ namespace Business.Concrete
             _customerAddressDal.Add(customerAddress);
             return new SuccessResult();
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICustomerAddressService")]
         public IResult Delete(CustomerAddress customerAddress)
@@ -34,6 +38,7 @@ namespace Business.Concrete
             _customerAddressDal.Delete(customerAddress);
             return new SuccessResult();
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICustomerAddressService")]
         [ValidationAspect(typeof(CustomerAddressValidator))]

@@ -2,6 +2,8 @@
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -27,18 +29,21 @@ namespace Business.Concrete
             _orderDal.Add(orders);
             return new SuccessDataResult<long>(orders.Id, Messages.AddedOrder);
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin,user")]
         public IResult Delete(Order order)
         {
             _orderDal.Delete(order);
             return new SuccessResult(Messages.DeletedOrder);
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin,user")]
         public IResult Update(Order order)
         {
             _orderDal.Update(order);
             return new SuccessResult(Messages.UpdatedOrder);
         }
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin,user")]
         public IResult Add(Order order)
         {

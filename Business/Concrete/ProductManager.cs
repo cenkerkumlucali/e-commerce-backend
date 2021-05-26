@@ -5,7 +5,9 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,6 +23,9 @@ namespace Business.Concrete
         {
             _productDal = productDal;
         }
+
+
+        [LogAspect(typeof(DatabaseLogger))]
         [SecuredOperation("admin,product.add")]
         [CacheRemoveAspect("IProductService.Get")]
         [ValidationAspect(typeof(ProductValidator))]
@@ -29,6 +34,9 @@ namespace Business.Concrete
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
         }
+
+
+        [LogAspect(typeof(DatabaseLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Delete(Product product)
@@ -36,6 +44,7 @@ namespace Business.Concrete
             _productDal.Delete(product);
             return new SuccessResult(Messages.ProductDeleted);
         }
+        [LogAspect(typeof(DatabaseLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IProductService.Get")]
         [ValidationAspect(typeof(ProductValidator))]
@@ -44,22 +53,26 @@ namespace Business.Concrete
             _productDal.Update(product);
             return new SuccessResult(Messages.ProductUpdated);
         }
+        [LogAspect(typeof(FileLogger))]
         [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll());
         }
+
         [CacheAspect]
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
         {
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
+        [LogAspect(typeof(DatabaseLogger))]
         [CacheAspect]
         public IDataResult<List<ProductDetailDto>> GetProductDetailByProductId(int productId)
         {
             return new SuccessDataResult<List<ProductDetailDto>>(
                 _productDal.GetProductDetails(c => c.ProductId == productId));
         }
+        
         [CacheAspect]
         public IDataResult<List<ProductDetailDto>> GetProductDetailByBrandId(int brandId)
         {

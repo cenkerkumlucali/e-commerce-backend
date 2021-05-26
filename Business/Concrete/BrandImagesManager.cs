@@ -7,7 +7,9 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers;
 using Core.Utilities.Results;
@@ -25,7 +27,7 @@ namespace Business.Concrete
         {
             _brandImagesDal = brandImagesDal;
         }
-
+        [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IBrandImagesService.Get")]
         [ValidationAspect(typeof(BrandImagesValidator))]
@@ -54,6 +56,7 @@ namespace Business.Concrete
             _brandImagesDal.Delete(brandImages);
             return new SuccessResult("Image was deleted successfully");
         }
+        [LogAspect(typeof(FileLogger))]
         [CacheRemoveAspect("IBrandImagesService.Get")]
         [ValidationAspect(typeof(BrandImagesValidator))]
         public IResult Update(IFormFile file, BrandImages brandImages)
