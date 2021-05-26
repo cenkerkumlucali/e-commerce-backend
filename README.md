@@ -1,5 +1,5 @@
 # E-Commerce-Backend
-Genel olarak proje katmanlı mimariye uygun şekilde tasarlanıp OOP olarak entity framework kullanılmaktadır.IoC prensibi ve SOLID ilkeleri ile geliştirilmeye devam ediyor.AutoFac ve FluentValidation paketleri kullanılıyor.
+Genel olarak proje katmanlı mimariye uygun şekilde tasarlanıp OOP olarak entity framework kullanılmaktadır.IoC prensibi ve SOLID ilkeleri ile geliştirilmeye devam ediyor
 # Katmanlar
 - [Business](https://github.com/cenkerkumlucali/E-Commerce-Backend/tree/main/Business):Sunum katmanından gelen bilgileri gerekli koşullara 
 göre işlemek veya denetlemek için oluşturulan Business Katmanı'nda Abstract,Concrete,Utilities,BusinessAspects,DependencyResolvers,Generic ve 
