@@ -25,6 +25,26 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getproductdetailsdesc")]
+        public IActionResult GetProductDetailsDesc()
+        {
+            var result = _productService.GetProductDetailsFilteredDesc();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getproductdetailsasc")]
+        public IActionResult GetProductDetailsAsc()
+        {
+            var result = _productService.GetProductDetailsFilteredAsc();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpGet("getproductdetails")]
         public IActionResult GetProductDetails()
         {

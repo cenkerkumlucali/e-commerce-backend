@@ -65,6 +65,20 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
+
+
+        public IDataResult<List<ProductDetailDto>> GetProductDetailsFilteredAsc()
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails()
+                .OrderBy(c => c.Price).ToList());
+        }
+
+        public IDataResult<List<ProductDetailDto>> GetProductDetailsFilteredDesc()
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails()
+                .OrderByDescending(c => c.Price).ToList());
+        }
+
         [LogAspect(typeof(DatabaseLogger))]
         [CacheAspect]
         public IDataResult<List<ProductDetailDto>> GetProductDetailByProductId(int productId)
