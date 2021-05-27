@@ -30,7 +30,9 @@ Güvenlik algoritmasını kullanılacağı Hashing klasöründe HashingHelper cl
 girmiş olduğu şifre kayıt olduğu sırada ki gibi tekrardan saltlanıp hashlenir ve veri tabanında ki şifre ile karşılaştırılır eğer doğruysa sisteme giriş yapar yanlışsa kullanıcı bilgilendirilir 
 DataAccess klasörü DataAccess Katmanı ile ilgili nesneleri, Entities klasörü Entities 
 katmanı ile ilgili nesneleri tutmak için oluşturulmuştur. Core katmanının .Net Core ile hiçbir bağlantısı yoktur.Oluşturulan core katmanında ortak kodlar tutulur. Core katmanı
-ile, kurumsal bir yapıda, alt yapı ekibi ilgilenir. 
+ile, kurumsal bir yapıda, alt yapı ekibi ilgilenir.
+## Aspect And Clean Code
+![Image](https://github.com/cenkerkumlucali/E-Commerce-Backend/blob/main/WebAPI/wwwroot/images/Screenshot_1.jpg)
 - [DataAccess](https://github.com/cenkerkumlucali/E-Commerce-Backend/tree/master/DataAccess):Veritabanı CRUD işlemleri gerçekleştirmek için oluşturulan Data Access Katmanı'nda Abstract ve Concrete olmak üzere iki adet klasör bulunmaktadır.Abstract klasörü soyut nesneleri, Concrete klasörü somut nesneleri tutmak için oluşturulmuştur. 
 - [Entites](https://github.com/cenkerkumlucali/E-Commerce-Backend/tree/master/Entities):Veritabanı nesneleri için oluşturulmuş Entities Katmanı'nda Abstract ve Concrete olmak üzere iki adet klasör bulunmaktadır.Abstract klasörü soyut nesneleri, Concrete klasörü somut nesneleri tutmak için oluşturulmuştur. 
 - [WebAPI](https://github.com/cenkerkumlucali/E-Commerce-Backend/tree/master/WebAPI) 
