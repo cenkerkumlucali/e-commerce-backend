@@ -43,7 +43,18 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("getalldetailsbyuserid")]
+        public IActionResult GetAllDetailsByUserId(int userId)
+        {
+            var result = _favoriteService.GetAllDetailsByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
 
+            return BadRequest(result);
+        }
+      
 
         [HttpPost("add")]
         public IActionResult Add(Favorite favorite)

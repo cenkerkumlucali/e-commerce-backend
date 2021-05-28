@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -14,10 +15,12 @@ namespace Business.Concrete
     public class FavoriteManager:IFavoriteService
     {
         private IFavoriteDal _favoriteDal;
+        private IProductService _productService;
 
-        public FavoriteManager(IFavoriteDal favoriteDal)
+        public FavoriteManager(IFavoriteDal favoriteDal, IProductService productService)
         {
             _favoriteDal = favoriteDal;
+            _productService = productService;
         }
 
         [LogAspect(typeof(FileLogger))]
@@ -51,5 +54,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<FavoriteDetailDto>>(_favoriteDal.GetAllDetails());
         }
+
+        public IDataResult<List<FavoriteDetailDto>> GetAllDetailsByUserId(int userId)
+        {
+            return new SuccessDataResult<List<FavoriteDetailDto>>(_favoriteDal.GetAllDetails(c => c.UserId == userId));
+        }
+
+     
     }
 }

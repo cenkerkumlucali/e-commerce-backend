@@ -9,5 +9,7 @@ namespace Business.Abstract
     public interface IFavoriteService:IGenericCrudOperationService<Favorite>
     {
         IDataResult<List<FavoriteDetailDto>> GetAllDetails();
+        IDataResult<List<FavoriteDetailDto>> GetAllDetailsByUserId(int userId);
+
     }
 }
