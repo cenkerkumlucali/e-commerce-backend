@@ -10,6 +10,7 @@ namespace Business.Abstract
     {
         IDataResult<List<FavoriteDetailDto>> GetAllDetails();
         IDataResult<List<FavoriteDetailDto>> GetAllDetailsByUserId(int userId);
-
+        IDataResult<List<FavoriteDetailDto>> GetAllDetailsFilteredAscByUserId(int userId);
+        IDataResult<List<FavoriteDetailDto>> GetAllDetailsFilteredDescByUserId(int userId);
     }
 }

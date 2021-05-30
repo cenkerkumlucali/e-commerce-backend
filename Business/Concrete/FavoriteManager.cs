@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
@@ -9,18 +10,17 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Business.Concrete
 {
     public class FavoriteManager:IFavoriteService
     {
         private IFavoriteDal _favoriteDal;
-        private IProductService _productService;
 
-        public FavoriteManager(IFavoriteDal favoriteDal, IProductService productService)
+        public FavoriteManager(IFavoriteDal favoriteDal)
         {
             _favoriteDal = favoriteDal;
-            _productService = productService;
         }
 
         [LogAspect(typeof(FileLogger))]
@@ -60,6 +60,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<FavoriteDetailDto>>(_favoriteDal.GetAllDetails(c => c.UserId == userId));
         }
 
-     
+        public IDataResult<List<FavoriteDetailDto>> GetAllDetailsFilteredAscByUserId(int userId)
+        {
+            return new SuccessDataResult<List<FavoriteDetailDto>>(_favoriteDal.GetAllDetails(c=>c.UserId==userId).OrderBy(c=>c.Price).ToList());
+        }
+
+        public IDataResult<List<FavoriteDetailDto>> GetAllDetailsFilteredDescByUserId(int userId)
+        {
+            return new SuccessDataResult<List<FavoriteDetailDto>>(_favoriteDal.GetAllDetails(c=>c.UserId == userId).OrderByDescending(c=>c.Price).ToList());
+        }
     }
 }

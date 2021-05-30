@@ -32,6 +32,29 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+
+        [HttpGet("getalldetailsfilteredascbyuserid")]
+        public IActionResult GetAllDetailsFilteredAscByUserId(int userId)
+        {
+            var result = _favoriteService.GetAllDetailsFilteredAscByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        [HttpGet("getalldetailsfiltereddescbyuserid")]
+        public IActionResult GetAllDetailsFilteredDescByUserId(int userId)
+        {
+            var result = _favoriteService.GetAllDetailsFilteredDescByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpGet("getalldetails")]
         public IActionResult GetAllDetails()
         {
@@ -54,7 +77,7 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
-      
+
 
         [HttpPost("add")]
         public IActionResult Add(Favorite favorite)
