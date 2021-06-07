@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
@@ -25,29 +26,29 @@ namespace Business.Concrete
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICityService.Get")]
         [ValidationAspect(typeof(CityValidator))]
-        public IResult Add(City city)
+        public async Task<IResult> Add(City city)
         {
-            _cityDal.Add(city);
+            await _cityDal.AddAsync(city);
             return new SuccessResult();
         }
         [SecuredOperation("admin")]
-        public IResult Delete(City city)
+        public async Task<IResult> Delete(City city)
         {
-            _cityDal.Delete(city);
+            await _cityDal.DeleteAsync(city);
             return new SuccessResult();
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICityService.Get")]
         [ValidationAspect(typeof(CityValidator))]
-        public IResult Update(City city)
+        public async Task<IResult> Update(City city)
         {
-            _cityDal.Update(city);
+            await _cityDal.UpdateAsync(city);
             return new SuccessResult();
         }
-        public IDataResult<List<City>> GetAll()
+        public async Task<IDataResult<List<City>>> GetAll()
         {
-            return new SuccessDataResult<List<City>>(_cityDal.GetAll());
+            return new SuccessDataResult<List<City>>(await _cityDal.GetAllAsync());
         }
        
     }

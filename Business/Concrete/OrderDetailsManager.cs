@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
@@ -24,45 +25,45 @@ namespace Business.Concrete
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(OrderDetailsValidator))]
-        public IResult MultiAdd(OrderDetails[] orderDetails)
+        public async Task<IResult> MultiAdd(OrderDetails[] orderDetails)
         {
-            _orderDetailsDal.MultiAdd(orderDetails);
+            await _orderDetailsDal.MultiAddAsync(orderDetails);
             return new SuccessResult();
         }
 
-        public IResult Add(OrderDetails order)
+        public async Task<IResult> Add(OrderDetails order)
         {
-            _orderDetailsDal.Add(order);
+            await _orderDetailsDal.AddAsync(order);
             return new SuccessResult();
         }
 
-        public IResult Delete(OrderDetails orderDetails)
+        public async Task<IResult> Delete(OrderDetails orderDetails)
         {
-            _orderDetailsDal.Delete(orderDetails);
+            await _orderDetailsDal.DeleteAsync(orderDetails);
             return new SuccessResult();
         }
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(OrderDetailsValidator))]
-        public IResult Update(OrderDetails orderDetails)
+        public async Task<IResult> Update(OrderDetails orderDetails)
         {
-            _orderDetailsDal.Update(orderDetails);
+            await _orderDetailsDal.UpdateAsync(orderDetails);
             return new SuccessResult();
         }
         [CacheAspect]
-        public IDataResult<List<OrderDetails>> GetAll()
+        public async Task<IDataResult<List<OrderDetails>>> GetAll()
         {
-            return new SuccessDataResult<List<OrderDetails>>(_orderDetailsDal.GetAll());
+            return new SuccessDataResult<List<OrderDetails>>(await _orderDetailsDal.GetAllAsync());
         }
         [CacheAspect]
-        public IDataResult<List<OrderDetailsDto>> GetAllDetails()
+        public async Task<IDataResult<List<OrderDetailsDto>>> GetAllDetails()
         {
-            return new SuccessDataResult<List<OrderDetailsDto>>(_orderDetailsDal.GetProductDetails());
+            return new SuccessDataResult<List<OrderDetailsDto>>( await _orderDetailsDal.GetProductDetails());
         }
 
-        public IDataResult<List<OrderDetailsDto>> GetAllDetailsByUserId(int userId)
+        public async Task<IDataResult<List<OrderDetailsDto>>> GetAllDetailsByUserId(int userId)
         {
             return new SuccessDataResult<List<OrderDetailsDto>>(
-                _orderDetailsDal.GetProductDetails(c => c.UserId == userId));
+                await _orderDetailsDal.GetProductDetails(c => c.UserId == userId));
         }
     }
 }

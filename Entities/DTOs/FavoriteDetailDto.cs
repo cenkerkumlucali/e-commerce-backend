@@ -8,6 +8,7 @@ namespace Entities.DTOs
     {
         public int UserId { get; set; }
         public int ProductId { get; set; }
+        public long BrandId { get; set; }
         public string UserFullName { get; set; }
         public string ProductName { get; set; }
         public List<string> Images { get; set; }

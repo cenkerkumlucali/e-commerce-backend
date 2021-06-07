@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -24,42 +25,42 @@ namespace Business.Concrete
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(CustomerCreditCardValidator))]
-        public IResult Add(CustomerCreditCard customerCreditCard)
+        public async Task<IResult> Add(CustomerCreditCard customerCreditCard)
         {
-            _customerCreditCardDal.Add(customerCreditCard);
+            await _customerCreditCardDal.AddAsync(customerCreditCard);
             return new SuccessResult();
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
-        public IResult Delete(CustomerCreditCard customerCreditCard)
+        public async Task<IResult> Delete(CustomerCreditCard customerCreditCard)
         {
-            _customerCreditCardDal.Delete(customerCreditCard);
+            await _customerCreditCardDal.DeleteAsync(customerCreditCard);
             return new SuccessResult(Messages.DeletedCustomerCreditCard);
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(CustomerCreditCardValidator))]
-        public IResult Update(CustomerCreditCard customerCreditCard)
+        public async Task<IResult> Update(CustomerCreditCard customerCreditCard)
         {
-            _customerCreditCardDal.Update(customerCreditCard);
+            await _customerCreditCardDal.UpdateAsync(customerCreditCard);
             return new SuccessResult();
         }
-        public IDataResult<List<CustomerCreditCard>> GetAll()
+        public async Task<IDataResult<List<CustomerCreditCard>>> GetAll()
         {
-            return new SuccessDataResult<List<CustomerCreditCard>> (_customerCreditCardDal.GetAll());
+            return new SuccessDataResult<List<CustomerCreditCard>> (await _customerCreditCardDal.GetAllAsync());
         }
 
-        public IDataResult<List<CustomerCreditCard>> GetByCustomerId(int customerId)
+        public async Task<IDataResult<List<CustomerCreditCard>>> GetByCustomerId(int customerId)
         {
             return new SuccessDataResult<List<CustomerCreditCard>>(
-                _customerCreditCardDal.GetAll(c => c.CustomerId == customerId));
+                await _customerCreditCardDal.GetAllAsync(c => c.CustomerId == customerId));
         }
 
 
-        public IDataResult<List<CustomerPaymentDetailDto>> GetDetailsByCustomerId(int customerId)
+        public async Task<IDataResult<List<CustomerPaymentDetailDto>>> GetDetailsByCustomerId(int customerId)
         {
             return new SuccessDataResult<List<CustomerPaymentDetailDto>>(
-                _customerCreditCardDal.GetDetails(c => c.UserId == customerId));
+                await _customerCreditCardDal.GetDetails(c => c.UserId == customerId));
         }
 
     }

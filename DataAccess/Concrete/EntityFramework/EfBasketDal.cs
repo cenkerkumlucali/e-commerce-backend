@@ -6,12 +6,14 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfBasketDal:EfEntityRepositoryBase<Basket,NorthwindContext>,IBasketDal
     {
-        public List<BasketDetailDto> GetBasketDetails(Expression<Func<BasketDetailDto, bool>> filter = null)
+        public async Task<List<BasketDetailDto>> GetBasketDetails(Expression<Func<BasketDetailDto, bool>> filter = null)
         {
             using (NorthwindContext context = new NorthwindContext())
             {
@@ -35,7 +37,7 @@ namespace DataAccess.Concrete.EntityFramework
                 CreateDate = basket.CreateDate,
                 Active = basket.Active
                     };
-                return filter == null ? result.ToList() : result.Where(filter).ToList();
+                return filter == null ? await result.ToListAsync() : await result.Where(filter).ToListAsync();
             }
         }
     }

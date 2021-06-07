@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using System.Threading.Tasks;
+using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getalldetails")]
-        public IActionResult GetAllDetails()
+        public async Task<IActionResult> GetAllDetails()
         {
-            var result = _productCommentService.GetDetail();
+            var result = await _productCommentService.GetDetail();
             if (result.Success)
             {
                 return Ok(result);
@@ -28,9 +29,9 @@ namespace WebAPI.Controllers
         }
         
         [HttpGet("getalldetailsbyuserid")]
-        public IActionResult GetAllDetailsByUserId(int userId)
+        public async Task<IActionResult> GetAllDetailsByUserId(int userId)
         {
-            var result = _productCommentService.GetDetailByUserId(userId);
+            var result = await _productCommentService.GetDetailByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);
@@ -40,9 +41,9 @@ namespace WebAPI.Controllers
         }
         
         [HttpGet("getalldetailsbyproductid")]
-        public IActionResult GetAllDetailsByProductId(int productId)
+        public async Task<IActionResult> GetAllDetailsByProductId(int productId)
         {
-            var result = _productCommentService.GetDetailByProductId(productId);
+            var result = await _productCommentService.GetDetailByProductId(productId);
             if (result.Success)
             {
                 return Ok(result);
@@ -52,9 +53,9 @@ namespace WebAPI.Controllers
         }
         
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _productCommentService.GetAll();
+            var result = await _productCommentService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -63,9 +64,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getallbyuserid")]
-        public IActionResult GetAllByUserId(int userId)
+        public async Task<IActionResult> GetAllByUserId(int userId)
         {
-            var result = _productCommentService.GetAllByUserId(userId);
+            var result = await _productCommentService.GetAllByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);
@@ -74,9 +75,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getallbyproductid")]
-        public IActionResult GetAllByProductId(int productId)
+        public async Task<IActionResult> GetAllByProductId(int productId)
         {
-            var result = _productCommentService.GetAllByProductId(productId);
+            var result = await _productCommentService.GetAllByProductId(productId);
             if (result.Success)
             {
                 return Ok(result);
@@ -84,9 +85,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(ProductComment productComment)
+        public async Task<IActionResult> Add(ProductComment productComment)
         {
-            var result = _productCommentService.Add(productComment);
+            var result = await _productCommentService.Add(productComment);
             if (result.Success)
             {
                 return Ok(result);

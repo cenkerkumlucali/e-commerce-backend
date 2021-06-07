@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
@@ -8,6 +9,6 @@ namespace Business.Abstract
 {
     public interface IBrandService:IGenericCrudOperationService<Brand>
     {
-        IDataResult<List<BrandDetailDto>> GetBrandDetails();
+        Task<IDataResult<List<BrandDetailDto>>> GetBrandDetails();
     }
 }

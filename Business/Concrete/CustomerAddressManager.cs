@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
@@ -25,53 +26,53 @@ namespace Business.Concrete
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICustomerAddressService")]
         [ValidationAspect(typeof(CustomerAddressValidator))]
-        public IResult Add(CustomerAddress customerAddress)
+        public async Task<IResult> Add(CustomerAddress customerAddress)
         {
-            _customerAddressDal.Add(customerAddress);
+            await _customerAddressDal.AddAsync(customerAddress);
             return new SuccessResult();
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICustomerAddressService")]
-        public IResult Delete(CustomerAddress customerAddress)
+        public async Task<IResult> Delete(CustomerAddress customerAddress)
         {
-            _customerAddressDal.Delete(customerAddress);
+            await _customerAddressDal.DeleteAsync(customerAddress);
             return new SuccessResult();
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICustomerAddressService")]
         [ValidationAspect(typeof(CustomerAddressValidator))]
-        public IResult Update(CustomerAddress customerAddress)
+        public async Task<IResult> Update(CustomerAddress customerAddress)
         {
-            _customerAddressDal.Update(customerAddress);
+            await _customerAddressDal.UpdateAsync(customerAddress);
             return new SuccessResult();
         }
-        public IDataResult<List<CustomerAddress>> GetAll()
+        public async Task<IDataResult<List<CustomerAddress>>> GetAll()
         {
-            return new SuccessDataResult<List<CustomerAddress>>(_customerAddressDal.GetAll());
+            return new SuccessDataResult<List<CustomerAddress>>(await _customerAddressDal.GetAllAsync());
         }
 
-        public IDataResult<List<CustomerAddress>> GetByCustomerId(int customerId)
+        public async Task<IDataResult<List<CustomerAddress>>> GetByCustomerId(int customerId)
         {
-            return new SuccessDataResult<List<CustomerAddress>>(_customerAddressDal.GetAll(c=>c.CustomerId==customerId));
+            return new SuccessDataResult<List<CustomerAddress>>( await _customerAddressDal.GetAllAsync(c=>c.CustomerId==customerId));
         }
 
-        public IDataResult<List<CustomerAddressDto>>GetAllDatails()
+        public async Task<IDataResult<List<CustomerAddressDto>>> GetAllDatails()
         {
-            return new SuccessDataResult<List<CustomerAddressDto>>(_customerAddressDal.GetCustomerAddressDetail());
+            return new SuccessDataResult<List<CustomerAddressDto>>(await _customerAddressDal.GetCustomerAddressDetail());
         }
 
-        public IDataResult<List<CustomerAddressDto>> GetDetailsByCustomerId(int customerId)
+        public async Task<IDataResult<List<CustomerAddressDto>>> GetDetailsByCustomerId(int customerId)
         {
             return new SuccessDataResult<List<CustomerAddressDto>>(
-                _customerAddressDal.GetCustomerAddressDetail(c => c.CustomerId == customerId));
+                await _customerAddressDal.GetCustomerAddressDetail(c => c.CustomerId == customerId));
         }
 
-        public IDataResult<List<CustomerAddressDto>> GetDetailsByAddressId(int addressId)
+        public async Task<IDataResult<List<CustomerAddressDto>>> GetDetailsByAddressId(int addressId)
         {
             return new SuccessDataResult<List<CustomerAddressDto>>(
-                _customerAddressDal.GetCustomerAddressDetail(c => c.AddressId == addressId));
+                await _customerAddressDal.GetCustomerAddressDetail(c => c.AddressId == addressId));
         }
       
     }

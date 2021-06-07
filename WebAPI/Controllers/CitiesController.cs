@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _cityService.GetAll();
+            var result = await _cityService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(City city)
+        public async Task<IActionResult>Add(City city)
         {
-            var result = _cityService.Add(city);
+            var result =await _cityService.Add(city);
             if (result.Success)
             {
                 return Ok(result);
@@ -43,9 +43,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(City city)
+        public async Task<IActionResult> Delete(City city)
         {
-            var result = _cityService.Delete(city);
+            var result = await _cityService.Delete(city);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,9 +54,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(City city)
+        public async Task<IActionResult> Update(City city)
         {
-            var result = _cityService.Update(city);
+            var result = await _cityService.Update(city);
             if (result.Success)
             {
                 return Ok(result);

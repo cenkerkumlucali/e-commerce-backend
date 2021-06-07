@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
@@ -25,50 +27,51 @@ namespace Business.Concrete
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IAddressService.Get")]
         [ValidationAspect(typeof(AddressValidator))]
-        public IResult Add(Address address)
+        public async Task<IResult> Add(Address address)
         {
-            _addressDal.Add(address);
+             await _addressDal.AddAsync(address);
             return new SuccessResult(Messages.AddressAdded);
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IAddressService.Get")]
-        public IResult Delete(Address address)
+        public async Task<IResult> Delete(Address address)
         {
-            _addressDal.Delete(address);
+           await _addressDal.DeleteAsync(address);
             return new SuccessResult(Messages.AddressDeleted);
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IAddressService.Get")]
         [ValidationAspect(typeof(AddressValidator))]
-        public IResult Update(Address address)
+        public async Task<IResult> Update(Address address)
         {
-            _addressDal.Update(address);
+            await _addressDal.UpdateAsync(address);
             return new SuccessResult(Messages.AddressUpdated);
         }
         [CacheAspect]
-        public IDataResult<Address> GetById(int id)
+        public async Task<IDataResult<Address>> GetById(int id)
         {
-            return new SuccessDataResult<Address>(_addressDal.Get(c => c.Id == id));
+            return new SuccessDataResult<Address>(await _addressDal.GetAsync(c => c.Id == id));
+        }
+       
+      
+        [CacheAspect]
+        public async Task<IDataResult<List<Address>>> GetAllByUserId(int userId)
+        {
+            return new SuccessDataResult<List<Address>>(await _addressDal.GetAllAsync(p => p.UserId == userId),"Kullanıcının adresi listelendi");
         }
         [CacheAspect]
-        public IDataResult<List<Address>> GetAll()
+        public async Task<IDataResult<List<Address>>> GetAllByCityId(int cityId)
         {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(),Messages.AddressListed);
-        }
-        [CacheAspect]
-        public IDataResult<List<Address>> GetAllByUserId(int userId)
-        {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(p => p.UserId == userId),"Kullanıcının adresi listelendi");
-        }
-        [CacheAspect]
-        public IDataResult<List<Address>> GetAllByCityId(int cityId)
-        {
-            return new SuccessDataResult<List<Address>>(_addressDal.GetAll(p => p.CityId == cityId),
+            return new SuccessDataResult<List<Address>>(await _addressDal.GetAllAsync(p => p.CityId == cityId),
                 Messages.AddressFilterCityId);
         }
-        
-       
+
+        [CacheAspect]
+        public async Task<IDataResult<List<Address>>> GetAll()
+        {
+            return new SuccessDataResult<List<Address>>(await _addressDal.GetAllAsync());
+        }
     }
 }

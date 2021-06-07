@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _basketService.GetAll();
+            var result = await _basketService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbasketdetails")]
-        public IActionResult GetRentalDetails()
+        public async Task<IActionResult> GetRentalDetails()
         {
-            var result = _basketService.GetBasketDetails();
+            var result = await _basketService.GetBasketDetails();
             if (result.Success)
             {
                 return Ok(result);
@@ -43,9 +43,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbasketdetailsbyuserid")]
-        public IActionResult GetRentalDetailsByUserId(int userId)
+        public async Task<IActionResult> GetRentalDetailsByUserId(int userId)
         {
-            var result = _basketService.GetBasketDetailsByUserId(userId);
+            var result = await _basketService.GetBasketDetailsByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,9 +54,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(Basket basket)
+        public async Task<IActionResult> Add(Basket basket)
         {
-            var result = _basketService.Add(basket);
+            var result = await _basketService.Add(basket);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +65,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Basket basket)
+        public async Task<IActionResult> Delete(Basket basket)
         {
-            var result = _basketService.Delete(basket);
+            var result = await _basketService.Delete(basket);
             if (result.Success)
             {
                 return Ok(result);
@@ -76,9 +76,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Basket basket)
+        public async Task<IActionResult> Update(Basket basket)
         {
-            var result = _basketService.Update(basket);
+            var result = await _basketService.Update(basket);
             if (result.Success)
             {
                 return Ok(result);

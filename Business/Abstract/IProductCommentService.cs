@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
@@ -8,10 +9,10 @@ namespace Business.Abstract
 {
     public interface IProductCommentService:IGenericCrudOperationService<ProductComment>
     {
-        IDataResult<List<ProductCommentDto>> GetDetail();
-        IDataResult<List<ProductCommentDto>> GetDetailByUserId(int userId);
-        IDataResult<List<ProductCommentDto>> GetDetailByProductId(int productId);
-        IDataResult<List<ProductComment>> GetAllByUserId(int userId);
-        IDataResult<List<ProductComment>> GetAllByProductId(int productId);
+        Task<IDataResult<List<ProductCommentDto>>> GetDetail();
+        Task<IDataResult<List<ProductCommentDto>>> GetDetailByUserId(int userId);
+        Task<IDataResult<List<ProductCommentDto>>> GetDetailByProductId(int productId);
+        Task<IDataResult<List<ProductComment>>> GetAllByUserId(int userId);
+        Task<IDataResult<List<ProductComment>>> GetAllByProductId(int productId);
     }
 }

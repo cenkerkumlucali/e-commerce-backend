@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
@@ -21,43 +22,43 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
         [CacheAspect]
-        public IDataResult<List<Category>> GetAll()
+        public async Task<IDataResult<List<Category>>> GetAll()
         {
-            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
+            return new SuccessDataResult<List<Category>>(await _categoryDal.GetAllAsync());
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICategoryService.Get")]
         [ValidationAspect(typeof(CategoryValidator))]
-        public IResult Add(Category category)
+        public async Task<IResult> Add(Category category)
         {
-           _categoryDal.Add(category);
+           await _categoryDal.AddAsync(category);
            return new SuccessResult();
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICategoryService.Get")]
         [ValidationAspect(typeof(CategoryValidator))]
-        public IResult MultiAdd(Category[] categories)
+        public async Task<IResult> MultiAdd(Category[] categories)
         {
-            _categoryDal.MultiAdd(categories);
+          await _categoryDal.MultiAddAsync(categories);
             return new SuccessResult();
         }
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICategoryService.Get")]
         [ValidationAspect(typeof(CategoryValidator))]
-        public IResult Delete(Category category)
+        public async Task<IResult> Delete(Category category)
         {
           
-            _categoryDal.Delete(category);
+            await _categoryDal.DeleteAsync(category);
             return new SuccessResult();
         }
         [SecuredOperation("admin")]
         [CacheRemoveAspect("ICategoryService.Get")]
         [ValidationAspect(typeof(CategoryValidator))]
-        public IResult Update(Category category)
+        public async Task<IResult> Update(Category category)
         {
-            _categoryDal.Update(category);
+            await _categoryDal.UpdateAsync(category);
             return new SuccessResult();
         }
     }

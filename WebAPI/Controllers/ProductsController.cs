@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using System.Threading.Tasks;
+using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetALl()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _productService.GetAll();
+            var result = await _productService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -29,6 +30,16 @@ namespace WebAPI.Controllers
         public IActionResult GetProductDetailsDesc()
         {
             var result = _productService.GetProductDetailsFilteredDesc();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getproductdetailsevaluation")]
+        public IActionResult GetProductDetailsEvaluation()
+        {
+            var result = _productService.GetProductDetailsEvaluation();
             if (result.Success)
             {
                 return Ok(result);
@@ -106,9 +117,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbycategory")]
-        public IActionResult GetByCategory(int categoryId)
+        public async Task<IActionResult> GetByCategory(int categoryId)
         {
-            var result = _productService.GetAllByCategory(categoryId);
+            var result = await _productService.GetAllByCategory(categoryId);
             if (result.Success)
             {
                 return Ok(result);
@@ -117,9 +128,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Product product)
+        public async Task<IActionResult> Add(Product product)
         {
-            var result = _productService.Add(product);
+            var result = await _productService.Add(product);
             if (result.Success)
             {
                 return Ok(result);
@@ -127,9 +138,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Product product)
+        public async Task<IActionResult> Delete(Product product)
         {
-            var result = _productService.Delete(product);
+            var result = await _productService.Delete(product);
             if (result.Success)
             {
                 return Ok(result);
@@ -137,9 +148,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Product product)
+        public async Task<IActionResult> Update(Product product)
         {
-            var result = _productService.Update(product);
+            var result = await _productService.Update(product);
             if (result.Success)
             {
                 return Ok(result);

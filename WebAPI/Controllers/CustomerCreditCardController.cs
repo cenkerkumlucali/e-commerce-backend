@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _customerCreditCardService.GetAll();
+            var result = await _customerCreditCardService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbycustomerid")]
-        public IActionResult GetByCustomerId(int customerId)
+        public async Task<IActionResult> GetByCustomerId(int customerId)
         {
-            var result = _customerCreditCardService.GetByCustomerId(customerId);
+            var result = await _customerCreditCardService.GetByCustomerId(customerId);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,9 +42,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getdetailsbycustomerid")]
-        public IActionResult GetDetailsByCustomerId(int customerId)
+        public async Task<IActionResult> GetDetailsByCustomerId(int customerId)
         {
-            var result = _customerCreditCardService.GetDetailsByCustomerId(customerId);
+            var result = await _customerCreditCardService.GetDetailsByCustomerId(customerId);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,9 +53,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(CustomerCreditCard customerCreditCard)
+        public async Task<IActionResult> Add(CustomerCreditCard customerCreditCard)
         {
-            var result = _customerCreditCardService.Add(customerCreditCard);
+            var result = await _customerCreditCardService.Add(customerCreditCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -64,9 +64,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(CustomerCreditCard customerCreditCard)
+        public async Task<IActionResult> Delete(CustomerCreditCard customerCreditCard)
         {
-            var result = _customerCreditCardService.Delete(customerCreditCard);
+            var result = await _customerCreditCardService.Delete(customerCreditCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -75,9 +75,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(CustomerCreditCard customerCreditCard)
+        public async Task<IActionResult> Update(CustomerCreditCard customerCreditCard)
         {
-            var result = _customerCreditCardService.Update(customerCreditCard);
+            var result = await _customerCreditCardService.Update(customerCreditCard);
             if (result.Success)
             {
                 return Ok(result);

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -25,18 +27,18 @@ namespace DataAccess.Concrete.EntityFramework
                         ProductId = product.Id,
                         BrandId = brand.Id,
                         CategoryId = category.CategoryId,
-                        Images = 
-                            (from i in context.ProductsImages where i.ProductId == product.Id select i.ImagePath).ToList(),
                         CategoryName = category.Name,
                         BrandName = brand.Name,
                         ProductName = product.Name,
                         Description = product.Description,
                         Code = product.Code,
+                        Rating = product.Rating,
                         DiscountRate = product.DiscountRate,
                         Price = product.Price,
                         CreateDate = product.CreateDate,
                         Active = product.Active,
-                        
+                        Images = (from i in context.ProductsImages where i.ProductId == product.Id select i.ImagePath).ToList(),
+
                     };
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
             }

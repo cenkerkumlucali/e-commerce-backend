@@ -57,22 +57,18 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = user.Status
             };
-            _userDal.Update(updatedUser);
+            _userDal.UpdateAsync(updatedUser);
             return new SuccessResult(Messages.UserUpdated);
         }
         public IDataResult<User> GetById(int id)
         {
-            if (DateTime.Now.Hour == 00)
-            {
-                return new ErrorDataResult<User>(Messages.MaintenanceTime);
-            }
             return new SuccessDataResult<User>(_userDal.Get(b => b.Id == id));
         }
         
 
         public IResult Delete(User user)
         {
-            _userDal.Delete(user);
+            _userDal.DeleteAsync(user);
             return new SuccessResult(Messages.UserDeleted);
         }
         public IDataResult<User> GetUserByEmail(string email)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
@@ -8,7 +9,7 @@ namespace Business.Abstract
 {
     public interface IBasketService:IGenericCrudOperationService<Basket>
     {
-        IDataResult<List<BasketDetailDto>> GetBasketDetails();
-        IDataResult<List<BasketDetailDto>> GetBasketDetailsByUserId(int userId);
+        Task<IDataResult<List<BasketDetailDto>>> GetBasketDetails();
+        Task<IDataResult<List<BasketDetailDto>>> GetBasketDetailsByUserId(int userId);
     }
 }

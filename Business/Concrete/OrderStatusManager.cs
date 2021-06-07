@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -15,26 +16,26 @@ namespace Business.Concrete
             _orderStatusDal = orderStatusDal;
         }
 
-        public IDataResult<List<OrderStatus>> GetAll()
+        public async Task<IDataResult<List<OrderStatus>>> GetAll()
         {
-            return new SuccessDataResult<List<OrderStatus>>(_orderStatusDal.GetAll());
+            return new SuccessDataResult<List<OrderStatus>>(await _orderStatusDal.GetAllAsync());
         }
 
-        public IResult Add(OrderStatus orderStatus)
+        public async Task<IResult> Add(OrderStatus orderStatus)
         {
-            _orderStatusDal.Add(orderStatus);
+            await _orderStatusDal.AddAsync(orderStatus);
             return new SuccessResult();
         }
 
-        public IResult Delete(OrderStatus orderStatus)
+        public async Task<IResult> Delete(OrderStatus orderStatus)
         {
-            _orderStatusDal.Delete(orderStatus);
+            await _orderStatusDal.DeleteAsync(orderStatus);
             return new SuccessResult();
         }
 
-        public IResult Update(OrderStatus orderStatus)
+        public async Task<IResult> Update(OrderStatus orderStatus)
         {
-            _orderStatusDal.Update(orderStatus);
+            await _orderStatusDal.UpdateAsync(orderStatus);
             return new SuccessResult();
         }
     }

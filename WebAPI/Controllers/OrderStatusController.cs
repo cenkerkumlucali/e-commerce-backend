@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _orderStatusService.GetAll();
+            var result = await _orderStatusService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(OrderStatus orderStatus)
+        public async Task<IActionResult> Add(OrderStatus orderStatus)
         {
-            var result = _orderStatusService.Add(orderStatus);
+            var result = await _orderStatusService.Add(orderStatus);
             if (result.Success)
             {
                 return Ok(result);
@@ -43,9 +43,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(OrderStatus orderStatus)
+        public async Task<IActionResult> Delete(OrderStatus orderStatus)
         {
-            var result = _orderStatusService.Delete(orderStatus);
+            var result = await _orderStatusService.Delete(orderStatus);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,9 +54,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(OrderStatus orderStatus)
+        public async Task<IActionResult> Update(OrderStatus orderStatus)
         {
-            var result = _orderStatusService.Update(orderStatus);
+            var result = await _orderStatusService.Update(orderStatus);
             if (result.Success)
             {
                 return Ok(result);

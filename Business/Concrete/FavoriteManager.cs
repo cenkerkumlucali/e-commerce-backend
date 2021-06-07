@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -25,28 +26,28 @@ namespace Business.Concrete
 
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
-        public IResult Add(Favorite favorite)
+        public async Task<IResult> Add(Favorite favorite)
         {
-            _favoriteDal.Add(favorite);
+            await _favoriteDal.AddAsync(favorite);
             return new SuccessResult(Messages.FavoriteAdded);
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
-        public IResult Delete(Favorite favorite)
+        public async Task<IResult> Delete(Favorite favorite)
         {
-            _favoriteDal.Delete(favorite);
+            await _favoriteDal.DeleteAsync(favorite);
             return new SuccessResult(Messages.FavoriteDeleted);
         }
         [LogAspect(typeof(FileLogger))]
         [SecuredOperation("admin")]
-        public IResult Update(Favorite favorite)
+        public async Task<IResult> Update(Favorite favorite)
         {
-            _favoriteDal.Update(favorite);
+            await _favoriteDal.UpdateAsync(favorite);
             return new SuccessResult(Messages.FavoriteUpdated);
         }
-        public IDataResult<List<Favorite>> GetAll()
+        public async Task<IDataResult<List<Favorite>>> GetAll()
         {
-            return new SuccessDataResult<List<Favorite>>(_favoriteDal.GetAll());
+            return new SuccessDataResult<List<Favorite>>( await _favoriteDal.GetAllAsync());
         }
        
 

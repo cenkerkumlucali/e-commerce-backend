@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
@@ -25,34 +26,34 @@ namespace Business.Concrete
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IBrandService.Get")]
         [ValidationAspect(typeof(BrandValidator))]
-        public IResult Add(Brand brand)
+        public async Task<IResult> Add(Brand brand)
         {
-            _brandDal.Add(brand);
+          await _brandDal.AddAsync(brand);
             return new SuccessResult();
         }
 
-        public IResult Delete(Brand brand)
+        public async Task<IResult> Delete(Brand brand)
         {
-            _brandDal.Delete(brand);
+            await _brandDal.DeleteAsync(brand);
             return new SuccessResult();
         }
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IBrandService.Get")]
         [ValidationAspect(typeof(BrandValidator))]
-        public IResult Update(Brand brand)
+        public async Task<IResult> Update(Brand brand)
         {
-            _brandDal.Update(brand);
+           await _brandDal.UpdateAsync(brand);
             return new SuccessResult();
         }
         [CacheAspect]
-        public IDataResult<List<Brand>> GetAll()
+        public async Task<IDataResult<List<Brand>>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+            return new SuccessDataResult<List<Brand>>(await _brandDal.GetAllAsync());
         }
         [CacheAspect]
-        public IDataResult<List<BrandDetailDto>> GetBrandDetails()
+        public async Task<IDataResult<List<BrandDetailDto>>> GetBrandDetails()
         {
-            return new SuccessDataResult<List<BrandDetailDto>>(_brandDal.GetBrandsDetails());
+            return new SuccessDataResult<List<BrandDetailDto>>(await _brandDal.GetBrandsDetails());
         }
        
     }

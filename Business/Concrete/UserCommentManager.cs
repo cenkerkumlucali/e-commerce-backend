@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
@@ -20,32 +21,32 @@ namespace Business.Concrete
         }
         [CacheRemoveAspect("IProductCommentManager")]
         [ValidationAspect(typeof(UserCommentValidator))]
-        public IResult Add(UserComment userComment)
+        public async Task<IResult> Add(UserComment userComment)
         {
-            _userCommentDal.Add(userComment);
+            await _userCommentDal.AddAsync(userComment);
             return new SuccessResult(Messages.AddedComment);
         }
 
-        public IResult Delete(UserComment userComment)
+        public async Task<IResult> Delete(UserComment userComment)
         {
-            _userCommentDal.Delete(userComment);
+            await _userCommentDal.DeleteAsync(userComment);
             return new SuccessResult(Messages.DeletedComment);
         }
         [CacheRemoveAspect("IProductCommentManager")]
-        public IResult Update(UserComment userComment)
+        public async Task<IResult> Update(UserComment userComment)
         {
-            _userCommentDal.Update(userComment);
+            await _userCommentDal.UpdateAsync(userComment);
             return new SuccessResult(Messages.UpdatedComment);
         }
         [CacheAspect]
-        public IDataResult<List<UserComment>> GetAll()
+        public async Task<IDataResult<List<UserComment>>> GetAll()
         {
-            return new SuccessDataResult<List<UserComment>>(_userCommentDal.GetAll());
+            return new SuccessDataResult<List<UserComment>>(await _userCommentDal.GetAllAsync());
         }
         [CacheAspect]
-        public IDataResult<List<UserComment>> GetAllByUserId(int userId)
+        public async Task<IDataResult<List<UserComment>>> GetAllByUserId(int userId)
         {
-            return new SuccessDataResult<List<UserComment>>(_userCommentDal.GetAll(c => c.UserId == userId));
+            return new SuccessDataResult<List<UserComment>>(await _userCommentDal.GetAllAsync(c => c.UserId == userId));
         }
 
     }

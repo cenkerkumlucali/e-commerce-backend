@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _categoryService.GetAll();
+            var result = await _categoryService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(Category category)
+        public async Task<IActionResult> Add(Category category)
         {
-            var result = _categoryService.Add(category);
+            var result = await _categoryService.Add(category);
             if (result.Success)
             {
                 return Ok(result);
@@ -43,9 +43,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("multiadd")]
-        public IActionResult MultiAdd(Category[] categories)
+        public async Task<IActionResult> MultiAdd(Category[] categories)
         {
-            var result = _categoryService.MultiAdd(categories);
+            var result = await _categoryService.MultiAdd(categories);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,9 +54,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Category category)
+        public async Task<IActionResult> Delete(Category category)
         {
-            var result = _categoryService.Delete(category);
+            var result = await _categoryService.Delete(category);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +65,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Category category)
+        public async Task<IActionResult> Update(Category category)
         {
-            var result = _categoryService.Update(category);
+            var result = await _categoryService.Update(category);
             if (result.Success)
             {
                 return Ok(result);

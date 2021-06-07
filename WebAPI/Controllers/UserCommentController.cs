@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using System.Threading.Tasks;
+using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,9 @@ namespace WebAPI.Controllers
             _userCommentService = userCommentService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _userCommentService.GetAll();
+            var result = await _userCommentService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -26,9 +27,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getallbyuserid")]
-        public IActionResult GetAllByUserId(int userId)
+        public async Task<IActionResult> GetAllByUserId(int userId)
         {
-            var result = _userCommentService.GetAllByUserId(userId);
+            var result = await _userCommentService.GetAllByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);
@@ -38,9 +39,9 @@ namespace WebAPI.Controllers
         }
        
         [HttpPost("add")]
-        public IActionResult Add(UserComment userComment)
+        public async Task<IActionResult> Add(UserComment userComment)
         {
-            var result = _userCommentService.Add(userComment);
+            var result = await _userCommentService.Add(userComment);
             if (result.Success)
             {
                 return Ok(result);
@@ -49,9 +50,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(UserComment userComment)
+        public async Task<IActionResult> Delete(UserComment userComment)
         {
-            var result = _userCommentService.Delete(userComment);
+            var result = await _userCommentService.Delete(userComment);
             if (result.Success)
             {
                 return Ok(result);
@@ -60,9 +61,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(UserComment userComment)
+        public async Task<IActionResult> Update(UserComment userComment)
         {
-            var result = _userCommentService.Update(userComment);
+            var result = await _userCommentService.Update(userComment);
             if (result.Success)
             {
                 return Ok(result);

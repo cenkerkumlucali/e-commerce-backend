@@ -21,6 +21,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.Code).MaximumLength(15);
             RuleFor(c => c.Description).NotEmpty();
             RuleFor(c => c.Description).MinimumLength(10);
+            RuleFor(c => c.Rating).GreaterThan(1).LessThan(10);
         }
 
 

@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _brandService.GetAll();
+            var result = await _brandService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -33,9 +33,9 @@ namespace WebAPI.Controllers
         }
         
         [HttpGet("getbrandsdetail")]
-        public IActionResult GetBrandDetails()
+        public async Task<IActionResult> GetBrandDetails()
         {
-            var result = _brandService.GetBrandDetails();
+            var result = await _brandService.GetBrandDetails();
             if (result.Success)
             {
                 return Ok(result);
@@ -44,9 +44,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(Brand brand)
+        public async Task<IActionResult> Add(Brand brand)
         {
-            var result = _brandService.Add(brand);
+            var result = await _brandService.Add(brand);
             if (result.Success)
             {
                 return Ok(result);
@@ -55,9 +55,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Brand brand)
+        public async Task<IActionResult> Delete(Brand brand)
         {
-            var result = _brandService.Delete(brand);
+            var result =await _brandService.Delete(brand);
             if (result.Success)
             {
                 return Ok(result);
@@ -66,9 +66,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Brand brand)
+        public async Task<IActionResult> Update(Brand brand)
         {
-            var result = _brandService.Update(brand);
+            var result = await _brandService.Update(brand);
             if (result.Success)
             {
                 return Ok(result);

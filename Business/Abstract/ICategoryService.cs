@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
@@ -7,7 +8,7 @@ namespace Business.Abstract
 {
     public interface ICategoryService:IGenericCrudOperationService<Category>
     {
-        IResult Add(Category category);
-        IResult MultiAdd(Category[] categories);
+        Task<IResult> Add(Category category);
+        Task<IResult> MultiAdd(Category[] categories);
     }
 }

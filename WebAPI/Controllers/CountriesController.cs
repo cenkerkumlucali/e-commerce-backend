@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _countryService.GetAll();
+            var result = await _countryService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(Country country)
+        public async Task<IActionResult> Add(Country country)
         {
-            var result = _countryService.Add(country);
+            var result = await _countryService.Add(country);
             if (result.Success)
             {
                 return Ok(result);
@@ -43,9 +43,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Country country)
+        public async Task<IActionResult> Delete(Country country)
         {
-            var result = _countryService.Delete(country);
+            var result = await _countryService.Delete(country);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,9 +54,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Country country)
+        public async Task<IActionResult> Update(Country country)
         {
-            var result = _countryService.Update(country);
+            var result = await _countryService.Update(country);
             if (result.Success)
             {
                 return Ok(result);

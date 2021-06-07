@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using System.Threading.Tasks;
+using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,9 @@ namespace WebAPI.Controllers
             _customerAddressService = customerAddressService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _customerAddressService.GetAll();
+            var result = await _customerAddressService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -26,9 +27,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetAllDetails()
+        public async Task<IActionResult> GetAllDetails()
         {
-            var result = _customerAddressService.GetAllDatails();
+            var result = await _customerAddressService.GetAllDatails();
             if (result.Success)
             {
                 return Ok(result);
@@ -36,9 +37,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getdetailsbycustomerid")]
-        public IActionResult GetDetailsByCustomerId(int customerId)
+        public async Task<IActionResult> GetDetailsByCustomerId(int customerId)
         {
-            var result = _customerAddressService.GetDetailsByCustomerId(customerId);
+            var result = await _customerAddressService.GetDetailsByCustomerId(customerId);
             if (result.Success)
             {
                 return Ok(result);
@@ -46,9 +47,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getdetailsbyaddressid")]
-        public IActionResult GetDetailsByAddressId(int addressId)
+        public async Task<IActionResult> GetDetailsByAddressId(int addressId)
         {
-            var result = _customerAddressService.GetDetailsByAddressId(addressId);
+            var result = await _customerAddressService.GetDetailsByAddressId(addressId);
             if (result.Success)
             {
                 return Ok(result);
@@ -57,9 +58,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbycustomerid")]
-        public IActionResult GetByCustomerId(int customerId)
+        public async Task<IActionResult> GetByCustomerId(int customerId)
         {
-            var result = _customerAddressService.GetByCustomerId(customerId);
+            var result = await _customerAddressService.GetByCustomerId(customerId);
             if (result.Success)
             {
                 return Ok(result);
@@ -68,9 +69,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("add")]
-        public IActionResult Add(CustomerAddress customerCreditCard)
+        public async Task<IActionResult> Add(CustomerAddress customerCreditCard)
         {
-            var result = _customerAddressService.Add(customerCreditCard);
+            var result = await _customerAddressService.Add(customerCreditCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -79,9 +80,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("delete")]
-        public IActionResult Delete(CustomerAddress customerCreditCard)
+        public async Task<IActionResult> Delete(CustomerAddress customerCreditCard)
         {
-            var result = _customerAddressService.Delete(customerCreditCard);
+            var result = await _customerAddressService.Delete(customerCreditCard);
             if (result.Success)
             {
                 return Ok(result);
@@ -90,9 +91,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("update")]
-        public IActionResult Update(CustomerAddress customerCreditCard)
+        public async Task<IActionResult> Update(CustomerAddress customerCreditCard)
         {
-            var result = _customerAddressService.Update(customerCreditCard);
+            var result = await _customerAddressService.Update(customerCreditCard);
             if (result.Success)
             {
                 return Ok(result);

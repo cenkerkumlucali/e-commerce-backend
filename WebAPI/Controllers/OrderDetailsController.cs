@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _orderDetailsService.GetAll();
+            var result = await _orderDetailsService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetAllDetails()
+        public async Task<IActionResult> GetAllDetails()
         {
-            var result = _orderDetailsService.GetAllDetails();
+            var result = await _orderDetailsService.GetAllDetails();
             if (result.Success)
             {
                 return Ok(result);
@@ -43,9 +43,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetailsbyuserid")]
-        public IActionResult GetAllDetailsByUserId(int userId)
+        public async Task<IActionResult> GetAllDetailsByUserId(int userId)
         {
-            var result = _orderDetailsService.GetAllDetailsByUserId(userId);
+            var result = await _orderDetailsService.GetAllDetailsByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,9 +54,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(OrderDetails[] orderDetails)
+        public async Task<IActionResult> Add(OrderDetails[] orderDetails)
         {
-            var result = _orderDetailsService.MultiAdd(orderDetails);
+            var result = await _orderDetailsService.MultiAdd(orderDetails);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +65,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(OrderDetails orderDetails)
+        public async Task<IActionResult> Delete(OrderDetails orderDetails)
         {
-            var result = _orderDetailsService.Delete(orderDetails);
+            var result = await _orderDetailsService.Delete(orderDetails);
             if (result.Success)
             {
                 return Ok(result);
@@ -76,9 +76,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(OrderDetails orderDetails)
+        public async Task<IActionResult> Update(OrderDetails orderDetails)
         {
-            var result = _orderDetailsService.Update(orderDetails);
+            var result = await _orderDetailsService.Update(orderDetails);
             if (result.Success)
             {
                 return Ok(result);

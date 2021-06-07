@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -15,26 +16,26 @@ namespace Business.Concrete
             _countryDal = countryDal;
         }
 
-        public IDataResult<List<Country>> GetAll()
+        public async Task<IDataResult<List<Country>>> GetAll()
         {
-            return new ErrorDataResult<List<Country>>(_countryDal.GetAll());
+            return new ErrorDataResult<List<Country>>(await _countryDal.GetAllAsync());
         }
 
-        public IResult Add(Country country)
+        public async Task<IResult> Add(Country country)
         {
-            _countryDal.Add(country);
+            await _countryDal.AddAsync(country);
             return new SuccessResult();
         }
 
-        public IResult Delete(Country country)
+        public async Task<IResult> Delete(Country country)
         {
-            _countryDal.Delete(country);
+            await _countryDal.DeleteAsync(country);
             return new SuccessResult();
         }
 
-        public IResult Update(Country country)
+        public async Task<IResult> Update(Country country)
         {
-            _countryDal.Update(country);
+            await _countryDal.UpdateAsync(country);
             return new SuccessResult();
         }
     }

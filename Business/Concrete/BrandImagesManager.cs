@@ -53,7 +53,7 @@ namespace Business.Concrete
             }
 
             FileHelper.Delete(image.ImagePath);
-            _brandImagesDal.Delete(brandImages);
+            _brandImagesDal.DeleteAsync(brandImages);
             return new SuccessResult("Image was deleted successfully");
         }
         [LogAspect(typeof(FileLogger))]
@@ -73,7 +73,7 @@ namespace Business.Concrete
                 return new ErrorResult(updatedFile.Message);
             }
             brandImages.ImagePath = updatedFile.Message;
-            _brandImagesDal.Update(brandImages);
+            _brandImagesDal.UpdateAsync(brandImages);
             return new SuccessResult("Car image updated");
         }
         [CacheAspect]

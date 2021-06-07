@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
@@ -8,7 +9,7 @@ namespace Business.Abstract
 {
     public interface ICustomerCreditCardService:IGenericCrudOperationService<CustomerCreditCard>
     {
-        IDataResult<List<CustomerCreditCard>> GetByCustomerId(int customerId);
-        IDataResult<List<CustomerPaymentDetailDto>> GetDetailsByCustomerId(int customerId);
+        Task<IDataResult<List<CustomerCreditCard>>> GetByCustomerId(int customerId);
+        Task<IDataResult<List<CustomerPaymentDetailDto>>> GetDetailsByCustomerId(int customerId);
     }
 }

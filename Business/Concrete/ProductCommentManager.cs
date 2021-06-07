@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
 using Core.Aspects.Autofac.Caching;
@@ -18,53 +19,53 @@ namespace Business.Concrete
             _productCommentDal = productCommentDal;
         }
         [CacheAspect]
-        public IDataResult<List<ProductComment>> GetAll()
+        public async Task<IDataResult<List<ProductComment>>> GetAll()
         {
-            return new SuccessDataResult<List<ProductComment>>(_productCommentDal.GetAll());
+            return new SuccessDataResult<List<ProductComment>>(await _productCommentDal.GetAllAsync());
         }
         [CacheAspect]
-        public IDataResult<List<ProductCommentDto>> GetDetail()
+        public async Task<IDataResult<List<ProductCommentDto>>> GetDetail()
         {
-            return new SuccessDataResult<List<ProductCommentDto>>(_productCommentDal.GetProductCommentDetail());
+            return new SuccessDataResult<List<ProductCommentDto>>(await _productCommentDal.GetProductCommentDetail());
         }
         [CacheAspect]
-        public IDataResult<List<ProductCommentDto>> GetDetailByUserId(int userId)
+        public async Task<IDataResult<List<ProductCommentDto>>> GetDetailByUserId(int userId)
         {
-            return new SuccessDataResult<List<ProductCommentDto>>(_productCommentDal.GetProductCommentDetail(c=>c.UserId==userId));
+            return new SuccessDataResult<List<ProductCommentDto>>(await _productCommentDal.GetProductCommentDetail(c=>c.UserId==userId));
         }
         [CacheAspect]
-        public IDataResult<List<ProductCommentDto>> GetDetailByProductId(int productId)
+        public async Task<IDataResult<List<ProductCommentDto>>> GetDetailByProductId(int productId)
         {
             return new SuccessDataResult<List<ProductCommentDto>>(
-                _productCommentDal.GetProductCommentDetail(c => c.ProductId == productId));
+               await _productCommentDal.GetProductCommentDetail(c => c.ProductId == productId));
         }
 
         [CacheAspect]
-        public IDataResult<List<ProductComment>> GetAllByUserId(int userId)
+        public async Task<IDataResult<List<ProductComment>>> GetAllByUserId(int userId)
         {
-            return new SuccessDataResult<List<ProductComment>>(_productCommentDal.GetAll(c => c.UserId == userId));
+            return new SuccessDataResult<List<ProductComment>>(await _productCommentDal.GetAllAsync(c => c.UserId == userId));
         }
         [CacheAspect]
-        public IDataResult<List<ProductComment>> GetAllByProductId(int productId)
+        public async Task<IDataResult<List<ProductComment>>> GetAllByProductId(int productId)
         {
-            return new SuccessDataResult<List<ProductComment>>(_productCommentDal.GetAll(c => c.ProductId == productId));
+            return new SuccessDataResult<List<ProductComment>>(await _productCommentDal.GetAllAsync(c => c.ProductId == productId));
         }
         [CacheRemoveAspect("IProductCommentService.Get")]
-        public IResult Add(ProductComment productComment)
+        public async Task<IResult> Add(ProductComment productComment)
         {
-            _productCommentDal.Add(productComment);
+            await _productCommentDal.AddAsync(productComment);
             return new SuccessResult();
         }
 
-        public IResult Delete(ProductComment productComment)
+        public async Task<IResult> Delete(ProductComment productComment)
         {
-            _productCommentDal.Delete(productComment);
+            await _productCommentDal.DeleteAsync(productComment);
             return new SuccessResult();
         }
 
-        public IResult Update(ProductComment productComment)
+        public async Task<IResult> Update(ProductComment productComment)
         {
-            _productCommentDal.Delete(productComment);
+            await _productCommentDal.DeleteAsync(productComment);
             return new SuccessResult();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
@@ -15,26 +16,26 @@ namespace Business.Concrete
             _userOperationClaimDal = userOperationClaimDal;
         }
 
-        public IDataResult<List<UserOperationClaim>> GetAll()
+        public async Task<IDataResult<List<UserOperationClaim>>> GetAll()
         {
-            return new SuccessDataResult<List<UserOperationClaim>>(_userOperationClaimDal.GetAll());
+            return new SuccessDataResult<List<UserOperationClaim>>(await _userOperationClaimDal.GetAllAsync());
         }
 
-        public IResult Add(UserOperationClaim userOperationClaim)
+        public async Task<IResult> Add(UserOperationClaim userOperationClaim)
         {
-            _userOperationClaimDal.Add(userOperationClaim);
+            await _userOperationClaimDal.AddAsync(userOperationClaim);
             return new SuccessResult();
         }
 
-        public IResult Delete(UserOperationClaim userOperationClaim)
+        public async Task<IResult> Delete(UserOperationClaim userOperationClaim)
         {
-            _userOperationClaimDal.Delete(userOperationClaim);
+           await _userOperationClaimDal.DeleteAsync(userOperationClaim);
             return new SuccessResult();
         }
 
-        public IResult Update(UserOperationClaim userOperationClaim)
+        public async Task<IResult> Update(UserOperationClaim userOperationClaim)
         {
-            _userOperationClaimDal.Update(userOperationClaim);
+           await _userOperationClaimDal.UpdateAsync(userOperationClaim);
             return new SuccessResult();
         }
     }

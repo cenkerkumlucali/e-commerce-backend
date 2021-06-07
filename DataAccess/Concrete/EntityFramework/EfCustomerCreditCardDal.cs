@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCustomerCreditCardDal:EfEntityRepositoryBase<CustomerCreditCard,NorthwindContext>,ICustomerCreditCardDal
     {
-        public List<CustomerPaymentDetailDto> GetDetails(Expression<Func<CustomerPaymentDetailDto, bool>> filter = null)
+        public async Task<List<CustomerPaymentDetailDto>> GetDetails(Expression<Func<CustomerPaymentDetailDto, bool>> filter = null)
         {
             using (NorthwindContext context = new NorthwindContext())
             {
@@ -27,7 +29,7 @@ namespace DataAccess.Concrete.EntityFramework
                         CardNumber = payment.CardNumber,
                         expirationDate = payment.expirationDate
                     };
-                return filter == null ? result.ToList() : result.Where(filter).ToList();
+                return filter == null ? await result.ToListAsync() : await result.Where(filter).ToListAsync();
             }
         }
     }

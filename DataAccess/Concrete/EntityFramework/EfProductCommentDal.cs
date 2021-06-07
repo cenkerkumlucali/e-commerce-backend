@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfProductCommentDal:EfEntityRepositoryBase<ProductComment,NorthwindContext>,IProductCommentDal
     {
-        public List<ProductCommentDto> GetProductCommentDetail(Expression<Func<ProductCommentDto, bool>> filter = null)
+        public async Task<List<ProductCommentDto>> GetProductCommentDetail(Expression<Func<ProductCommentDto, bool>> filter = null)
         {
             using (NorthwindContext context = new NorthwindContext())
             {
@@ -26,7 +28,7 @@ namespace DataAccess.Concrete.EntityFramework
                         UserFullName = $"{user.FirstName} {user.LastName}",
                         Comment = productComment.Comment
                     };
-                return filter == null ? result.ToList() : result.Where(filter).ToList();
+                return filter == null ? await result.ToListAsync() : await result.Where(filter).ToListAsync();
             }
         }
     }

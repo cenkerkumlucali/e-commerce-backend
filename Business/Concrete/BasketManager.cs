@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -20,36 +21,36 @@ namespace Business.Concrete
             _basketDal = basketDal;
         }
         
-        public IDataResult<List<Basket>> GetAll()
+        public async Task<IDataResult<List<Basket>>> GetAll()
         {
-            return new SuccessDataResult<List<Basket>>(_basketDal.GetAll());
+            return new SuccessDataResult<List<Basket>>( await _basketDal.GetAllAsync());
         }
 
-        public IDataResult<List<BasketDetailDto>> GetBasketDetails()
+        public async Task<IDataResult<List<BasketDetailDto>>> GetBasketDetails()
         {
-            return new SuccessDataResult<List<BasketDetailDto>>(_basketDal.GetBasketDetails());
+            return new SuccessDataResult<List<BasketDetailDto>>(await _basketDal.GetBasketDetails());
         }
         
-        public IDataResult<List<BasketDetailDto>> GetBasketDetailsByUserId(int userId)
+        public async Task<IDataResult<List<BasketDetailDto>>> GetBasketDetailsByUserId(int userId)
         {
-            return new SuccessDataResult<List<BasketDetailDto>>(_basketDal.GetBasketDetails(c=>c.UserId==userId));
+            return new SuccessDataResult<List<BasketDetailDto>>(await _basketDal.GetBasketDetails(c=>c.UserId==userId));
         }
        
-        public IResult Add(Basket basket)
+        public async Task<IResult> Add(Basket basket)
         {
-            _basketDal.Add(basket);
+            await _basketDal.AddAsync(basket);
             return new SuccessResult(Messages.AddedBasket);
         }
 
-        public IResult Delete(Basket basket)
+        public async Task<IResult> Delete(Basket basket)
         {
-            _basketDal.Delete(basket);
+            await _basketDal.DeleteAsync(basket);
             return new SuccessResult(Messages.DeletedBasket);
         }
         [CacheRemoveAspect("IBasketService.Get")]
-        public IResult Update(Basket basket)
+        public async Task<IResult> Update(Basket basket)
         {
-            _basketDal.Update(basket);
+           await _basketDal.UpdateAsync(basket);
             return new SuccessResult(Messages.UpdatedBasket);
         }
     }

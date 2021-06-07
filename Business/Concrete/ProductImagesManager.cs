@@ -44,14 +44,14 @@ namespace Business.Concrete
 
         public IResult Delete(ProductsImage productsImage)
         {
-            _productImageDal.Delete(productsImage);
+            _productImageDal.DeleteAsync(productsImage);
             return new SuccessResult();
         }
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(ProductImagesValidator))]
         public IResult Update(IFormFile file, ProductsImage productsImage)
         {
-            _productImageDal.Update(productsImage);
+            _productImageDal.UpdateAsync(productsImage);
             return new SuccessResult();
         }
 

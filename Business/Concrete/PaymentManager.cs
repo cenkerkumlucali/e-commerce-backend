@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -22,49 +23,49 @@ namespace Business.Concrete
         }
         //[SecuredOperation("admin")]
         [ValidationAspect(typeof(PaymentValidator))]
-        public IDataResult<int> GetByIdAdd(Payment payment)
+        public async Task<IDataResult<int>> GetByIdAdd(Payment payment)
         {
-            _paymentDal.Add(payment);
+            await _paymentDal.AddAsync(payment);
             return new SuccessDataResult<int>(payment.Id,Messages.PaymentAdded);
         }
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(PaymentValidator))]
-        public IResult Update(Payment payment)
+        public async Task<IResult> Update(Payment payment)
         {
-            _paymentDal.Update(payment);
+            await _paymentDal.UpdateAsync(payment);
             return new SuccessResult();
         }
 
-        public IResult Add(Payment payment)
+        public async Task<IResult> Add(Payment payment)
         {
-            _paymentDal.Add(payment);
+            await _paymentDal.AddAsync(payment);
             return new SuccessResult();
         }
 
-        public IResult Delete(Payment payment)
+        public async Task<IResult> Delete(Payment payment)
         {
-            _paymentDal.Delete(payment);
+            await _paymentDal.DeleteAsync(payment);
             return new SuccessResult();
         }
 
-        public IDataResult<List<Payment>> GetAll()
+        public async Task<IDataResult<List<Payment>>> GetAll()
         {
-            return new SuccessDataResult<List<Payment>>(_paymentDal.GetAll());
+            return new SuccessDataResult<List<Payment>>(await _paymentDal.GetAllAsync());
         }
 
-        public IDataResult<Payment> GetById(int id)
+        public async Task<IDataResult<Payment>> GetById(int id)
         {
-            return new SuccessDataResult<Payment>(_paymentDal.Get(c => c.Id == id));
+            return new SuccessDataResult<Payment>(await _paymentDal.GetAsync(c => c.Id == id));
         }
 
-        public IDataResult<List<Payment>> GetByCardNumber(string cardNumber)
+        public async Task<IDataResult<List<Payment>>> GetByCardNumber(string cardNumber)
         {
-            return new SuccessDataResult<List<Payment>>(_paymentDal.GetAll(c => c.CardNumber == cardNumber));
+            return new SuccessDataResult<List<Payment>>(await _paymentDal.GetAllAsync(c => c.CardNumber == cardNumber));
         }
 
-        public IResult IsCardExist(Payment payment)
+        public async Task<IResult> IsCardExist(Payment payment)
         {
-            var result = _paymentDal.Get(c =>
+            var result = await _paymentDal.GetAsync(c =>
                 c.NameOnTheCard == payment.NameOnTheCard && c.CardNumber == payment.CardNumber &&
                 c.CardCvv == payment.CardCvv);
             if (result == null)

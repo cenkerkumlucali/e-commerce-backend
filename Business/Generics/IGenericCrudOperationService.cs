@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Utilities.Results;
 
 namespace Business.Generics
 {
     public interface IGenericCrudOperationService<T>
     {
-        IDataResult<List<T>> GetAll();
-        IResult Add(T entity);
-        IResult Delete(T entity);
-        IResult Update(T entity);
+        Task<IDataResult<List<T>>> GetAll();
+        Task<IResult> Add(T entity);
+        Task<IResult> Delete(T entity);
+        Task<IResult> Update(T entity);
     }
 }

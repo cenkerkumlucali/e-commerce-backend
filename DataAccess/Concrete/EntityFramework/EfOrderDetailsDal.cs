@@ -6,12 +6,14 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfOrderDetailsDal:EfEntityRepositoryBase<OrderDetails,NorthwindContext>,IOrderDetailsDal
     {
-        public List<OrderDetailsDto> GetProductDetails(Expression<Func<OrderDetailsDto, bool>> filter = null)
+        public async Task<List<OrderDetailsDto>> GetProductDetails(Expression<Func<OrderDetailsDto, bool>> filter = null)
         {
             using (NorthwindContext context = new NorthwindContext())
             {
@@ -34,7 +36,7 @@ namespace DataAccess.Concrete.EntityFramework
                         Images =
                             (from i in context.ProductsImages where i.ProductId == product.Id select i.ImagePath).ToList(),
                     };
-                return filter == null ? result.ToList() : result.Where(filter).ToList();
+                return filter == null ? await result.ToListAsync() : await result.Where(filter).ToListAsync();
             }
         }
     }

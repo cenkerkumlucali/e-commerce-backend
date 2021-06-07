@@ -19,19 +19,20 @@ namespace DataAccess.Concrete.EntityFramework
 
             using (NorthwindContext context = new NorthwindContext())
             {
-                var result = from contextFavorite in context.Favorites
-                             join user in context.Users on contextFavorite.UserId equals user.Id
-                             join product in context.Products on contextFavorite.ProductId equals product.Id
+                var result = from favorite in context.Favorites
+                             join user in context.Users on favorite.UserId equals user.Id
+                             join product in context.Products on favorite.ProductId equals product.Id
+                             join brand in context.Brands on favorite.BrandId equals brand.Id
                              select new FavoriteDetailDto()
                              {
                                  UserId = user.Id,
                                  UserFullName = $"{user.FirstName} {user.LastName}",
                                  Price = product.Price,
-                                 Images = (from i in context.ProductsImages where i.ProductId == contextFavorite.ProductId select i.ImagePath).ToList(),
+                                 Images = (from i in context.ProductsImages where i.ProductId == favorite.ProductId select i.ImagePath).ToList(),
                                  ProductName = product.Name,
                                  DiscountRate = product.DiscountRate,
-                                 ProductId = product.Id
-
+                                 ProductId = product.Id,
+                                 BrandId = brand.Id
                              };
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
             }

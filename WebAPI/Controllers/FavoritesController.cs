@@ -22,9 +22,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _favoriteService.GetAll();
+            var result = await _favoriteService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -80,9 +80,9 @@ namespace WebAPI.Controllers
 
 
         [HttpPost("add")]
-        public IActionResult Add(Favorite favorite)
+        public async Task<IActionResult> Add(Favorite favorite)
         {
-            var result = _favoriteService.Add(favorite);
+            var result = await _favoriteService.Add(favorite);
             if (result.Success)
             {
                 return Ok(result);
@@ -92,9 +92,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Favorite favorite)
+        public async Task<IActionResult> Delete(Favorite favorite)
         {
-            var result = _favoriteService.Delete(favorite);
+            var result = await _favoriteService.Delete(favorite);
             if (result.Success)
             {
                 return Ok(result);

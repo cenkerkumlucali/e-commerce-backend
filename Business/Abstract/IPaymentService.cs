@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Business.Generics;
 using Core.Utilities.Results;
 using Entities.Concrete;
@@ -9,9 +10,9 @@ namespace Business.Abstract
 {
     public interface IPaymentService:IGenericCrudOperationService<Payment>
     {
-        IDataResult<int> GetByIdAdd(Payment fakeCard);
-        IDataResult<Payment> GetById(int id);
-        IDataResult<List<Payment>> GetByCardNumber(string cardNumber);
-        IResult IsCardExist(Payment fakeCard);
+        Task<IDataResult<int>> GetByIdAdd(Payment fakeCard);
+        Task<IDataResult<Payment>> GetById(int id);
+        Task<IDataResult<List<Payment>>> GetByCardNumber(string cardNumber);
+        Task<IResult> IsCardExist(Payment fakeCard);
     }
 }

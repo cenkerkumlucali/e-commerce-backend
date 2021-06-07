@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
@@ -29,9 +30,9 @@ namespace Business.Concrete
         [SecuredOperation("admin,product.add")]
         [CacheRemoveAspect("IProductService.Get")]
         [ValidationAspect(typeof(ProductValidator))]
-        public IResult Add(Product product)
+        public async Task<IResult> Add(Product product)
         {
-            _productDal.Add(product);
+            await _productDal.AddAsync(product);
             return new SuccessResult(Messages.ProductAdded);
         }
 
@@ -39,25 +40,25 @@ namespace Business.Concrete
         [LogAspect(typeof(DatabaseLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IProductService.Get")]
-        public IResult Delete(Product product)
+        public async Task<IResult> Delete(Product product)
         {
-            _productDal.Delete(product);
+            await _productDal.DeleteAsync(product);
             return new SuccessResult(Messages.ProductDeleted);
         }
         [LogAspect(typeof(DatabaseLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IProductService.Get")]
         [ValidationAspect(typeof(ProductValidator))]
-        public IResult Update(Product product)
+        public async Task<IResult> Update(Product product)
         {
-            _productDal.Update(product);
+            await _productDal.UpdateAsync(product);
             return new SuccessResult(Messages.ProductUpdated);
         }
         [LogAspect(typeof(FileLogger))]
         [CacheAspect]
-        public IDataResult<List<Product>> GetAll()
+        public async Task<IDataResult<List<Product>>> GetAll()
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll());
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAllAsync());
         }
 
         [CacheAspect]
@@ -71,6 +72,11 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails()
                 .OrderBy(c => c.Price).ToList());
+        }
+        public IDataResult<List<ProductDetailDto>> GetProductDetailsEvaluation()
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails()
+                .OrderByDescending(c => c.Rating).ToList());
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetailsFilteredDesc()
@@ -111,9 +117,9 @@ namespace Business.Concrete
                 _productDal.GetProductDetails(c => c.CategoryId == categoryId));
         }
         [CacheAspect]
-        public IDataResult<List<Product>> GetAllByCategory(int categoryId)
+        public async Task<IDataResult<List<Product>>> GetAllByCategory(int categoryId)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == categoryId),"Ürünler kategorye göre filtrelendi");
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAllAsync(p => p.CategoryId == categoryId),"Ürünler kategorye göre filtrelendi");
         }
        
     }

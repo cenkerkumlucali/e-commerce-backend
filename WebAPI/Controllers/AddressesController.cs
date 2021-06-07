@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
-            var result = _addressService.GetAll();
+            var result = await _addressService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getallbyuserid")]
-        public IActionResult GetAllByUserId(int userId)
+        public async Task<IActionResult> GetAllByUserId(int userId)
         {
-            var result = _addressService.GetAllByUserId(userId);
+            var result = await _addressService.GetAllByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);
@@ -43,9 +43,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var result = _addressService.GetById(id);
+            var result = await _addressService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -53,9 +53,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(Address address)
+        public async Task<IActionResult> Add(Address address)
         {
-            var result = _addressService.Add(address);
+            var result = await _addressService.Add(address);
             if (result.Success)
             {
                 return Ok(result);
@@ -64,9 +64,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Address address)
+        public async Task<IActionResult> Delete(Address address)
         {
-            var result = _addressService.Delete(address);
+            var result = await _addressService.Delete(address);
             if (result.Success)
             {
                 return Ok(result);
@@ -75,9 +75,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Address address)
+        public async Task<IActionResult> Update(Address address)
         {
-            var result = _addressService.Update(address);
+            var result = await _addressService.Update(address);
             if (result.Success)
             {
                 return Ok(result);
