@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Core.DataAccess;
-using Core.Utilities.Results;
 using Entities.Concrete;
 using Entities.DTOs;
 

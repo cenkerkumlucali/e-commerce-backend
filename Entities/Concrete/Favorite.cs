@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Core.Entities;
-using Entities.DTOs;
 
 namespace Entities.Concrete
 {

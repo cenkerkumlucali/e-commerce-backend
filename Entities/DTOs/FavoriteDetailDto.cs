@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Castle.DynamicProxy.Generators.Emitters;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Entities.DTOs
 {

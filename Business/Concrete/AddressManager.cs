@@ -4,7 +4,6 @@ using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
@@ -54,8 +53,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Address>(await _addressDal.GetAsync(c => c.Id == id));
         }
-       
-      
+
         [CacheAspect]
         public async Task<IDataResult<List<Address>>> GetAllByUserId(int userId)
         {
