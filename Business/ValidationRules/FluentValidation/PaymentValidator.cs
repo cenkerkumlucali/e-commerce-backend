@@ -8,7 +8,7 @@ namespace Business.ValidationRules.FluentValidation
         public PaymentValidator()
         {
             RuleFor(c => c.NameOnTheCard).NotEmpty().WithMessage("Kart üzerindeki isim boş geçilemez");
-            RuleFor(c => c.NameOnTheCard).MinimumLength(5).WithMessage("Lütfen kart üzerindeki ismin karaketerini 5 den fazla yazınız");
+            RuleFor(c => c.NameOnTheCard).MinimumLength(5).WithMessage("Lütfen kart üzerindeki ismin karakterini 5 den fazla yazınız");
             RuleFor(c => c.NameOnTheCard).MaximumLength(30);
             RuleFor(c => c.CardNumber).NotEmpty().WithMessage("Kart numarası boş geçilemez");
             RuleFor(c => c.CardCvv).NotEmpty().WithMessage("Kart güvenlik numarası boş geçilemez");

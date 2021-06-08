@@ -7,13 +7,12 @@ namespace Business.ValidationRules.FluentValidation
     {
         public AddressValidator()
         {
-            RuleFor(c => c.CityId).NotEmpty();
-            RuleFor(c => c.UserId).NotEmpty();
-            RuleFor(c => c.AddressDetail).NotEmpty();
-            RuleFor(c => c.AddressDetail).MinimumLength(5);
-            RuleFor(c => c.AddressDetail).MaximumLength(100);
-            RuleFor(c => c.AddressAbbreviation).NotEmpty();
-            RuleFor(c => c.AddressAbbreviation).MaximumLength(25);
+            RuleFor(c => c.CityId).NotEmpty().WithMessage("Şehir boş geçilemez");
+            RuleFor(c => c.AddressDetail).NotEmpty().WithMessage("Adres detayı boş geçilemez");
+            RuleFor(c => c.AddressDetail).MinimumLength(5).WithMessage("Adres detayı en az 5 karakterden oluşmalıdır");
+            RuleFor(c => c.AddressDetail).MaximumLength(100).WithMessage("Adres detayı en fazla 100 karakterden oluşmalıdır");
+            RuleFor(c => c.AddressAbbreviation).NotEmpty().WithMessage("Adres kısayolu boş geçilemez");
+            RuleFor(c => c.AddressAbbreviation).MaximumLength(25).WithMessage("Adres kısayalı en fazla 25 karakterden oluşmalıdır");
         }
     }
 }

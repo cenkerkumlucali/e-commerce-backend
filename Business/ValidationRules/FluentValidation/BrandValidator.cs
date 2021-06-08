@@ -7,9 +7,9 @@ namespace Business.ValidationRules.FluentValidation
     {
         public BrandValidator()
         {
-            RuleFor(c => c.Name).NotEmpty();
-            RuleFor(c => c.Name).MinimumLength(2);
-            RuleFor(c => c.Name).MaximumLength(15);
+            RuleFor(c => c.Name).NotEmpty().WithMessage("Marka ismi boş olamaz");
+            RuleFor(c => c.Name).MinimumLength(2).WithMessage("Marka ismi en az 2 karakterden oluşmalıdır");
+            RuleFor(c => c.Name).MaximumLength(20).WithMessage("Marka ismi en fazla 20 karakterden oluşmalıdır");
         }
     }
 }
