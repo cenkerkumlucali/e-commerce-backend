@@ -26,6 +26,26 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getproductdetails")]
+        public IActionResult GetProductDetails()
+        {
+            var result = _productService.GetProductDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getproductdetailsbyminpriceandmaxprice")]
+        public IActionResult GetProductDetailsByMinPriceAndMaxPrice(decimal minPrice,decimal maxPrice)
+        {
+            var result = _productService.GetProductDetailsByMinPriceAndMaxPrice(minPrice,maxPrice);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpGet("getproductdetailsdesc")]
         public IActionResult GetProductDetailsDesc()
         {
@@ -56,16 +76,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getproductdetails")]
-        public IActionResult GetProductDetails()
-        {
-            var result = _productService.GetProductDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
+        
         [HttpGet("getproductdetailsbypage")]
         public IActionResult GetProductDetailsByPage(int page,int pageSize)
         {
