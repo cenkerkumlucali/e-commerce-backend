@@ -16,7 +16,7 @@ using Entities.DTOs;
 
 namespace Business.Concrete
 {
-    public class ProductManager:IProductService
+    public class ProductManager : IProductService
     {
         private IProductDal _productDal;
 
@@ -67,6 +67,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
 
+        public IDataResult<List<ProductDetailDto>> GetProductDetailsByMinPriceAndMaxPrice(decimal minPrice, decimal maxPrice)
+        {
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails(c => c.Price >= minPrice && c.Price <= maxPrice));
+        }
+
 
         public IDataResult<List<ProductDetailDto>> GetProductDetailsFilteredAsc()
         {
@@ -85,14 +90,13 @@ namespace Business.Concrete
                 .OrderByDescending(c => c.Price).ToList());
         }
 
-        [LogAspect(typeof(DatabaseLogger))]
         [CacheAspect]
         public IDataResult<List<ProductDetailDto>> GetProductDetailByProductId(int productId)
         {
             return new SuccessDataResult<List<ProductDetailDto>>(
                 _productDal.GetProductDetails(c => c.ProductId == productId));
         }
-        
+
         [CacheAspect]
         public IDataResult<List<ProductDetailDto>> GetProductDetailByBrandId(int brandId)
         {
@@ -107,7 +111,7 @@ namespace Business.Concrete
 
         public IDataResult<List<ProductDetailDto>> GetAllProductDetailsByProductWithPage(int page, int pageSize)
         {
-            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails().Skip((page-1)*pageSize).Take(pageSize).ToList());
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails().Skip((page - 1) * pageSize).Take(pageSize).ToList());
         }
 
         [CacheAspect]
@@ -119,8 +123,8 @@ namespace Business.Concrete
         [CacheAspect]
         public async Task<IDataResult<List<Product>>> GetAllByCategory(int categoryId)
         {
-            return new SuccessDataResult<List<Product>>(await _productDal.GetAllAsync(p => p.CategoryId == categoryId),"Ürünler kategorye göre filtrelendi");
+            return new SuccessDataResult<List<Product>>(await _productDal.GetAllAsync(p => p.CategoryId == categoryId), "Ürünler kategoriye göre filtrelendi");
         }
-       
+
     }
 }
