@@ -148,6 +148,16 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpPost("getidadd")]
+        public async Task<IActionResult> GetIdAdd(Product product)
+        {
+            var result = await _productService.GetByIdAdd(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(Product product)
         {

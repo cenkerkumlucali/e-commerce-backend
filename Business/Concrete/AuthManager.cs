@@ -1,5 +1,7 @@
-﻿using Business.Abstract;
+﻿using System.Threading.Tasks;
+using Business.Abstract;
 using Business.Constants;
+using Core.Aspects.Autofac.Caching;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
@@ -20,8 +22,8 @@ namespace Business.Concrete
             _tokenHelper = tokenHelper;
             _userOperationClaimService = userOperationClaimService;
         }
-
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
+        [CacheRemoveAspect("IUserService")]
+        public async Task<IDataResult<User>> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -34,11 +36,10 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-            _userService.Add(user);
-            _userOperationClaimService.Add(new UserOperationClaim{OperationClaimId = 2,UserId = user.Id});
+            await _userService.Add(user);
+            await _userOperationClaimService.Add(new UserOperationClaim{OperationClaimId = 2,UserId = user.Id});
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
-
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);

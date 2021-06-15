@@ -72,7 +72,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("getdetailsbyuseridandproductid")]
+        public IActionResult GetDetailsByUserIdAndProductId(int userId,int productId)
+        {
+            var result = _favoriteService.GetDetailsByUserIdAndProductId(userId,productId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
 
+            return BadRequest(result);
+        }
 
         [HttpPost("add")]
         public async Task<IActionResult> Add(Favorite favorite)
@@ -85,7 +95,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpPost("getbyidadd")]
+        public async Task<IActionResult> GetByIdAdd(Favorite favorite)
+        {
+            var result = await _favoriteService.GetByIdAdd(favorite);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
 
+            return BadRequest(result);
+        }
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(Favorite favorite)
         {

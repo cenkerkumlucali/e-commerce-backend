@@ -14,11 +14,32 @@ namespace WebAPI.Controllers
         {
             _userService = userService;
         }
+        [HttpGet("getbyusersdetails")]
+        public IActionResult GetUsersDetails()
+        {
+            var result = _userService.GetUsersDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
 
+            return BadRequest(result);
+        }
+        [HttpGet("getbyusersdetailsbyid")]
+        public IActionResult GetUserDetailsById(int userId)
+        {
+            var result = _userService.GetUserDetailsById(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpGet("getbyuserid")]
         public IActionResult GetByUserId(int userId)
         {
-            var result = _userService.GetByUserId( userId);
+            var result = _userService.GetByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);

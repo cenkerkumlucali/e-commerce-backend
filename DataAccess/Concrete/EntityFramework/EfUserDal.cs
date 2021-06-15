@@ -1,13 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.DataAccess.EntityFramework;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using System.Linq;
+using System.Linq.Expressions;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfUserDal:EfEntityRepositoryBase<User,NorthwindContext>,IUserDal
     {
+        public List<UserDetailDto> GetUserDetails(Expression<Func<UserDetailDto, bool>> filter = null)
+        {
+            using (var context = new NorthwindContext())
+            {
+                var result = from user in context.Users
+                    select new UserDetailDto
+                    {
+                        UserId = user.Id,
+                        FullName = $"{user.FirstName} {user.LastName}",
+                        Images = (from image in context.UserImages where image.UserId == user.Id select image.ImagePath)
+                            .ToList()
+                    };
+                return filter == null ? result.ToList() : result.Where(filter).ToList();
+
+            }
+        }
+
         public List<OperationClaim> GetClaims(User user)
         {
             using (var context = new NorthwindContext())

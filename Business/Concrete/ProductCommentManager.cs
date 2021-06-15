@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.Constants;
 using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -32,6 +33,13 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<ProductCommentDto>>(await _productCommentDal.GetProductCommentDetail(c=>c.UserId==userId));
         }
+
+        public async Task<IDataResult<List<ProductCommentDto>>> GetDetailByUserIdAndId(int userId, int id)
+        {
+            return new SuccessDataResult<List<ProductCommentDto>>(
+                await _productCommentDal.GetProductCommentDetail(c => c.UserId == userId && c.Id == id));
+        }
+
         [CacheAspect]
         public async Task<IDataResult<List<ProductCommentDto>>> GetDetailByProductId(int productId)
         {
@@ -53,19 +61,19 @@ namespace Business.Concrete
         public async Task<IResult> Add(ProductComment productComment)
         {
             await _productCommentDal.AddAsync(productComment);
-            return new SuccessResult();
+            return new SuccessResult(Messages.AddedComment);
         }
-
+        [CacheRemoveAspect("IProductCommentService.Get")]
         public async Task<IResult> Delete(ProductComment productComment)
         {
             await _productCommentDal.DeleteAsync(productComment);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CommentDeleted);
         }
-
+        [CacheRemoveAspect("IProductCommentService.Get")]
         public async Task<IResult> Update(ProductComment productComment)
         {
-            await _productCommentDal.DeleteAsync(productComment);
-            return new SuccessResult();
+            await _productCommentDal.UpdateAsync(productComment);
+            return new SuccessResult(Messages.UpdatedComment);
         }
     }
 }

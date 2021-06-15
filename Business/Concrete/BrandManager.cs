@@ -48,13 +48,17 @@ namespace Business.Concrete
         [CacheAspect]
         public async Task<IDataResult<List<Brand>>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(await _brandDal.GetAllAsync());
+           
+                return new SuccessDataResult<List<Brand>>(await _brandDal.GetAllAsync());
+            
+
         }
         [CacheAspect]
         public async Task<IDataResult<List<BrandDetailDto>>> GetBrandDetails()
         {
             return new SuccessDataResult<List<BrandDetailDto>>(await _brandDal.GetBrandsDetails());
         }
+
        
     }
 }

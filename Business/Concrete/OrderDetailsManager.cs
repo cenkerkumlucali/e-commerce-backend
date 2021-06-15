@@ -23,7 +23,7 @@ namespace Business.Concrete
             _orderDetailsDal = orderDetailsDal;
         }
         [LogAspect(typeof(FileLogger))]
-        [SecuredOperation("admin")]
+      
         [ValidationAspect(typeof(OrderDetailsValidator))]
         public async Task<IResult> MultiAdd(OrderDetails[] orderDetails)
         {
@@ -32,7 +32,8 @@ namespace Business.Concrete
         }
 
         public async Task<IResult> Add(OrderDetails order)
-        {
+        { 
+           
             await _orderDetailsDal.AddAsync(order);
             return new SuccessResult();
         }
@@ -65,5 +66,6 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OrderDetailsDto>>(
                 await _orderDetailsDal.GetProductDetails(c => c.UserId == userId));
         }
+      
     }
 }

@@ -74,6 +74,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>().SingleInstance();
             builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>().SingleInstance();
 
+            builder.RegisterType<UserImageManager>().As<IUserImageService>().SingleInstance();
+            builder.RegisterType<EfUserImageDal>().As<IUserImageDal>().SingleInstance();
+
             builder.RegisterType<FavoriteManager>().As<IFavoriteService>().SingleInstance();
             builder.RegisterType<EfFavoriteDal>().As<IFavoriteDal>().SingleInstance();
 

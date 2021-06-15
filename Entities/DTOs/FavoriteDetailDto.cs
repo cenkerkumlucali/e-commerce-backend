@@ -4,6 +4,7 @@ namespace Entities.DTOs
 {
     public class FavoriteDetailDto
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int ProductId { get; set; }
         public long BrandId { get; set; }

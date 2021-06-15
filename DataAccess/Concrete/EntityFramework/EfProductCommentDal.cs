@@ -22,9 +22,11 @@ namespace DataAccess.Concrete.EntityFramework
                     join product in context.Products on productComment.ProductId equals product.Id
                     select new ProductCommentDto()
                     {
+                        Id = productComment.Id,
                         UserId = user.Id,
                         ProductId = product.Id,
                         ProductName = product.Name,
+                        ImagePath = (from i in context.UserImages where i.UserId ==productComment.UserId select i.ImagePath).ToList(),
                         UserFullName = $"{user.FirstName} {user.LastName}",
                         Comment = productComment.Comment
                     };

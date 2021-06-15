@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using System.Collections.Generic;
+using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +18,34 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add([FromForm(Name = ("Image"))] IFormFile file, [FromForm] ProductsImage images)
-        {
-            var result = _imagesService.Add(file, images);
+        public IActionResult Add([FromForm(Name = ("Image"))] List<IFormFile> file, [FromForm] ProductsImage images)
+            {
+            var result = _imagesService.AddAsync(file, images);
             if (result.Success)
             {
                 return Ok(result);
             }
 
+            return BadRequest(result);
+        }
+        [HttpPost("delete")]
+        public IActionResult Delete(ProductsImage image)
+        {
+            var result = _imagesService.Delete(image);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpPost("deletebyid")]
+        public IActionResult DeleteById(int id)
+        {
+            var result = _imagesService.DeleteById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
             return BadRequest(result);
         }
 
@@ -52,8 +73,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getimagesbycarid")]
-        public IActionResult GetImagesById([FromForm(Name = ("CarId"))] int carId)
+        [HttpGet("getimagesbyproductid")]
+        public IActionResult GetImagesById([FromForm(Name = ("ProductId"))] int carId)
         {
             var result = _imagesService.GetImagesByTId(carId);
             if (result.Success)

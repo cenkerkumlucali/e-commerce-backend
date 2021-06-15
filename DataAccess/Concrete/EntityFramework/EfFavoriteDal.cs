@@ -24,6 +24,7 @@ namespace DataAccess.Concrete.EntityFramework
                              join brand in context.Brands on favorite.BrandId equals brand.Id
                              select new FavoriteDetailDto()
                              {
+                                 Id=favorite.Id,
                                  UserId = user.Id,
                                  UserFullName = $"{user.FirstName} {user.LastName}",
                                  Price = product.Price,

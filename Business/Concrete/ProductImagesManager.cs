@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using System.Linq;
 using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
@@ -22,25 +23,52 @@ namespace Business.Concrete
         {
             _productImageDal = productImageDal;
         }
-        [SecuredOperation("admin")]
-        [ValidationAspect(typeof(ProductImagesValidator))]
-        public IResult Add(IFormFile file, ProductsImage productsImage)
+        [CacheRemoveAspect("IProductService.Get")]
+        public IResult AddAsync(List<IFormFile> file, ProductsImage productsImage)
         {
+            var error = "";
+            List<ProductsImage> products = new List<ProductsImage>();
             var imageCount = _productImageDal.GetAll(c => c.ProductId == productsImage.ProductId).Count;
             if (imageCount >= 5)
             {
                 return new ErrorResult("One product must have 5 or less images");
             }
-            var imageResult = FileHelper.Upload(file);
-            if (!imageResult.Success)
+
+            for (int i = 0; i < file.Count; i++)
             {
-                return new ErrorResult(imageResult.Message);
+                var newImage = new ProductsImage() { ProductId= productsImage.ProductId};
+                var imageResult = FileHelper.Upload(file[i]);
+
+                if (!imageResult.Success)
+                {
+                    error = imageResult.Message;
+                    break;
+                }
+                else
+                {
+                    newImage.ImagePath = imageResult.Message;
+
+                    products.Add(newImage);
+                }
             }
-            productsImage.ImagePath = imageResult.Message;
-            _productImageDal.Add(productsImage);
+            
+            _productImageDal.MultiAddAsync(products.ToArray());
             return new SuccessResult("Product image added");
         }
+        [CacheRemoveAspect("IProductService.Get")]
+        public IResult DeleteById(int id)
+        {
+            var images = _productImageDal.Get(c => c.Id == id);
+            _productImageDal.DeleteAsync(images);
+            return new SuccessResult();
+        }
 
+
+        public IResult Add(IFormFile file, ProductsImage entity)
+        {
+            throw new NotImplementedException();
+        }
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Delete(ProductsImage productsImage)
         {
             _productImageDal.DeleteAsync(productsImage);

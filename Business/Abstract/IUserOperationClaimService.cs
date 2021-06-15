@@ -5,6 +5,6 @@ namespace Business.Abstract
 {
     public interface IUserOperationClaimService:IGenericCrudOperationService<UserOperationClaim>
     {
-
+        
     }
 }

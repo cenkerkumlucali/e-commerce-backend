@@ -74,6 +74,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpGet("getallbyuseridandid")]
+        public async Task<IActionResult> GetDetailByUserIdAndId(int userId,int id)
+        {
+            var result = await _productCommentService.GetDetailByUserIdAndId(userId,id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpGet("getallbyproductid")]
         public async Task<IActionResult> GetAllByProductId(int productId)
         {
@@ -88,6 +99,28 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Add(ProductComment productComment)
         {
             var result = await _productCommentService.Add(productComment);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete(ProductComment productComment)
+        {
+            var result = await _productCommentService.Delete(productComment);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        [HttpPost("update")]
+        public async Task<IActionResult> Update(ProductComment productComment)
+        {
+            var result = await _productCommentService.Update(productComment);
             if (result.Success)
             {
                 return Ok(result);

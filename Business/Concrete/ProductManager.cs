@@ -48,7 +48,7 @@ namespace Business.Concrete
         [LogAspect(typeof(DatabaseLogger))]
         [SecuredOperation("admin")]
         [CacheRemoveAspect("IProductService.Get")]
-        [ValidationAspect(typeof(ProductValidator))]
+        //[ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Update(Product product)
         {
             await _productDal.UpdateAsync(product);
@@ -59,6 +59,12 @@ namespace Business.Concrete
         public async Task<IDataResult<List<Product>>> GetAll()
         {
             return new SuccessDataResult<List<Product>>(await _productDal.GetAllAsync());
+        }
+
+        public async Task<IDataResult<int>> GetByIdAdd(Product product)
+        {
+            await _productDal.AddAsync(product);
+            return new SuccessDataResult<int>(product.Id);
         }
 
         [CacheAspect]
@@ -94,7 +100,7 @@ namespace Business.Concrete
         public IDataResult<List<ProductDetailDto>> GetProductDetailByProductId(int productId)
         {
             return new SuccessDataResult<List<ProductDetailDto>>(
-                _productDal.GetProductDetails(c => c.ProductId == productId));
+                _productDal.GetProductDetails(c => c.Id == productId));
         }
 
         [CacheAspect]

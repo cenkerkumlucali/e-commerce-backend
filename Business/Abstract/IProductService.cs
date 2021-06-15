@@ -9,11 +9,12 @@ namespace Business.Abstract
 {
     public interface IProductService:IGenericCrudOperationService<Product>
     {
+        Task<IDataResult<int>> GetByIdAdd(Product product);
         IDataResult<List<ProductDetailDto>> GetProductDetails();
         IDataResult<List<ProductDetailDto>> GetProductDetailsByMinPriceAndMaxPrice(decimal minPrice,decimal maxPrice);
         IDataResult<List<ProductDetailDto>> GetProductDetailsFilteredDesc();
         IDataResult<List<ProductDetailDto>> GetProductDetailsFilteredAsc(); 
-        IDataResult<List<ProductDetailDto>>GetProductDetailsEvaluation();
+        IDataResult<List<ProductDetailDto>> GetProductDetailsEvaluation();
         IDataResult<List<ProductDetailDto>> GetProductDetailByCategoryId(int categoryId);
         IDataResult<List<ProductDetailDto>> GetProductDetailByProductId(int productId);
         IDataResult<List<ProductDetailDto>> GetProductDetailByBrandId(int brandId);

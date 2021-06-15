@@ -22,7 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
                         on product.BrandId equals brand.Id
                     select new ProductDetailDto
                     {
-                        ProductId = product.Id,
+                        Id = product.Id,
                         BrandId = brand.Id,
                         CategoryId = category.CategoryId,
                         CategoryName = category.Name,
@@ -35,6 +35,7 @@ namespace DataAccess.Concrete.EntityFramework
                         Price = product.Price,
                         CreateDate = product.CreateDate,
                         Active = product.Active,
+                        Image = (from image in context.ProductsImages where image.ProductId == product.Id select image).ToList(),
                         Images = (from i in context.ProductsImages where i.ProductId == product.Id select i.ImagePath).ToList(),
 
                     };
