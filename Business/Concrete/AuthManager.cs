@@ -37,7 +37,7 @@ namespace Business.Concrete
                 Status = true
             };
             await _userService.Add(user);
-            await _userOperationClaimService.Add(new UserOperationClaim{OperationClaimId = 2,UserId = user.Id});
+            await _userOperationClaimService.Add(new UserOperationClaim { OperationClaimId = 2, UserId = user.Id });
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
@@ -69,6 +69,18 @@ namespace Business.Concrete
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
+        }
+
+        public IDataResult<PasswordDto> CreatePasswordHash(string password)
+        {
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(password,out passwordHash,out passwordSalt);
+            var passwordDto = new PasswordDto
+            {
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt
+            };
+            return new SuccessDataResult<PasswordDto>(passwordDto,"Başarılı");
         }
     }
 }

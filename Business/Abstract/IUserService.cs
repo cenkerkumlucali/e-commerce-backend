@@ -14,7 +14,8 @@ namespace Business.Abstract
         List<OperationClaim> GetClaims(User user);
         User GetByMail(string email);
         Task<IResult> Add(User user);
-        IResult EditProfil(User user,string password);
+        IResult EditProfil(User user);
+        IResult EditPassword(UserForUpdateDto userForUpdateDto, string newPassword, string newPasswordVerify);
         IResult Delete(User user);
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetUserByEmail(string email);

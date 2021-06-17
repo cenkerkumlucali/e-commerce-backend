@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Business.Abstract;
+using Core.Entities.Concrete;
+using Core.Utilities.Security.Hashing;
 using Entities.DTOs;
 
 namespace WebAPI.Controllers
@@ -9,10 +11,11 @@ namespace WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
-
-        public UsersController(IUserService userService)
+        private IAuthService _authService;
+        public UsersController(IUserService userService, IAuthService authService)
         {
             _userService = userService;
+            _authService = authService;
         }
         [HttpGet("getbyusersdetails")]
         public IActionResult GetUsersDetails()
@@ -70,12 +73,34 @@ namespace WebAPI.Controllers
         [HttpPost("updateprofile")]
         public IActionResult ProfileUpdate(UserForUpdateDto userForUpdateDto)
         {
-            var result = _userService.EditProfil(userForUpdateDto.User, userForUpdateDto.Password);
+            var result = _userService.EditProfil(userForUpdateDto.User);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
+        }
+        [HttpGet("createpasswordhash")]
+        public IActionResult CreatePasswordHash(string password)
+        {
+            var result = _authService.CreatePasswordHash(password);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("editpassword")]
+        public IActionResult EditPassword(UserForUpdateDto userForUpdateDto, string newPassword, string newPasswordVerify)
+        {
+            var result = _userService.EditPassword(userForUpdateDto, newPassword, newPasswordVerify);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+
         }
         [HttpGet("email")]
         public IActionResult GetByMail(string email)
