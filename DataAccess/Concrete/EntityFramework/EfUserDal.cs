@@ -5,7 +5,9 @@ using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -20,8 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
                     {
                         UserId = user.Id,
                         FullName = $"{user.FirstName} {user.LastName}",
-                        Images = (from image in context.UserImages where image.UserId == user.Id select image.ImagePath)
-                            .ToList()
+                        Image = (from image in context.UserImages where image.UserId == user.Id select image).FirstOrDefault()
                     };
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
 
