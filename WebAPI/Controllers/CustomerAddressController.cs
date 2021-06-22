@@ -67,7 +67,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("add")]
+        [HttpPost("add")]
         public async Task<IActionResult> Add(CustomerAddress customerCreditCard)
         {
             var result = await _customerAddressService.Add(customerCreditCard);
@@ -78,7 +78,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("delete")]
+        [HttpPost("delete")]
         public async Task<IActionResult> Delete(CustomerAddress customerCreditCard)
         {
             var result = await _customerAddressService.Delete(customerCreditCard);
@@ -89,7 +89,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("update")]
+        [HttpPost("update")]
         public async Task<IActionResult> Update(CustomerAddress customerCreditCard)
         {
             var result = await _customerAddressService.Update(customerCreditCard);

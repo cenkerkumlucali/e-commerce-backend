@@ -48,6 +48,17 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpPost("getidadd")]
+        public async Task<IActionResult> GetIdAdd(Address address)
+        {
+            var result = await _addressService.GetIdAdd(address);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpPost("add")]
         public async Task<IActionResult> Add(Address address)
         {
