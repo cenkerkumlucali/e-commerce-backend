@@ -106,6 +106,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        [HttpPost("getidadd")]
+        public async Task<IActionResult> GetIdAdd(ProductComment productComment)
+        {
+            var result = await _productCommentService.GetIdAdd(productComment);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(ProductComment productComment)
         {
