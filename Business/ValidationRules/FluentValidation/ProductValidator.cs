@@ -19,7 +19,6 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.Description).NotEmpty().WithMessage("Ürün açıklaması boş geçilemez");
             RuleFor(c => c.Description).MinimumLength(10).WithMessage("Ürün açıklaması en az 10 karakterden oluşmalıdır");
             RuleFor(c => c.Description).MaximumLength(500).WithMessage("Ürün açıklaması en fazla 500 karakterden oluşmalıdır");
-            RuleFor(c => c.Rating).GreaterThan(1).LessThan(10);
         }
 
 
