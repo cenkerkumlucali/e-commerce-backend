@@ -9,7 +9,6 @@ using Business.Constants;
 
 namespace Business.BusinessAspects.Autofac
 {
-    //JWT
     public class SecuredOperation : MethodInterception
     {
         private string[] _roles;

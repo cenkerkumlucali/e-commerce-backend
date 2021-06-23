@@ -18,7 +18,7 @@ namespace Business.Concrete
 
         public async Task<IDataResult<List<Country>>> GetAll()
         {
-            return new ErrorDataResult<List<Country>>(await _countryDal.GetAllAsync());
+            return new SuccessDataResult<List<Country>>(await _countryDal.GetAllAsync());
         }
 
         public async Task<IResult> Add(Country country)

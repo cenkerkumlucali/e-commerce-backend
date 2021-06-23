@@ -23,6 +23,13 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<ProductComment>>(await _productCommentDal.GetAllAsync());
         }
+        [CacheRemoveAspect("IProductCommentService.Get")]
+        public async Task<IDataResult<int>> GetIdAdd(ProductComment productComment)
+        {
+            await _productCommentDal.AddAsync(productComment);    
+            return new SuccessDataResult<int>(productComment.Id,Messages.AddedComment);
+        }
+
         [CacheAspect]
         public async Task<IDataResult<List<ProductCommentDto>>> GetDetail()
         {
@@ -39,7 +46,6 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductCommentDto>>(
                 await _productCommentDal.GetProductCommentDetail(c => c.UserId == userId && c.Id == id));
         }
-
         [CacheAspect]
         public async Task<IDataResult<List<ProductCommentDto>>> GetDetailByProductId(int productId)
         {

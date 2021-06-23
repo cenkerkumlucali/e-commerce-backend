@@ -80,6 +80,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<FavoriteManager>().As<IFavoriteService>().SingleInstance();
             builder.RegisterType<EfFavoriteDal>().As<IFavoriteDal>().SingleInstance();
 
+            builder.RegisterType<UserCommentImageManager>().As<IUserCommentImageService>().SingleInstance();
+            builder.RegisterType<EfUserCommentImageDal>().As<IUserCommentImageDal>().SingleInstance();
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

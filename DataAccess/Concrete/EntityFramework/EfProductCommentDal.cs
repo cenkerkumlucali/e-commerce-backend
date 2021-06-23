@@ -27,6 +27,7 @@ namespace DataAccess.Concrete.EntityFramework
                         ProductId = product.Id,
                         ProductName = product.Name,
                         ImagePath = (from i in context.UserImages where i.UserId ==productComment.UserId select i.ImagePath).ToList(),
+                        CommentImagePath = (from i in context.UserCommentImages where i.CommentId == productComment.Id select i).ToList(),
                         UserFullName = $"{user.FirstName} {user.LastName}",
                         Comment = productComment.Comment
                     };

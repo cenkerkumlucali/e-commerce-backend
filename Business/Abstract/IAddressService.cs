@@ -8,6 +8,7 @@ namespace Business.Abstract
 {
     public interface IAddressService:IGenericCrudOperationService<Address>
     {
+        Task<IDataResult<long>> GetIdAdd(Address address);
         Task<IDataResult<Address>> GetById(int id);
         Task<IDataResult<List<Address>>> GetAllByUserId(int userId);
         Task<IDataResult<List<Address>>> GetAllByCityId(int cityId);

@@ -12,6 +12,7 @@ namespace Entities.DTOs
         public string ProductName { get; set; }
         public string UserFullName { get; set; }
         public List<string> ImagePath { get; set; }
+        public List<UserCommentImage> CommentImagePath { get; set; }
         public string Comment { get; set; }
     }
 }

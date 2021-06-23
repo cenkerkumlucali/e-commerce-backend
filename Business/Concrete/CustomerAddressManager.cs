@@ -23,7 +23,7 @@ namespace Business.Concrete
             _customerAddressDal = customerAddressDal;
         }
         [LogAspect(typeof(FileLogger))]
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin,user")]
         [CacheRemoveAspect("ICustomerAddressService")]
         [ValidationAspect(typeof(CustomerAddressValidator))]
         public async Task<IResult> Add(CustomerAddress customerAddress)
@@ -32,7 +32,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
         [LogAspect(typeof(FileLogger))]
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin,user")]
         [CacheRemoveAspect("ICustomerAddressService")]
         public async Task<IResult> Delete(CustomerAddress customerAddress)
         {
@@ -40,7 +40,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
         [LogAspect(typeof(FileLogger))]
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin,user")]
         [CacheRemoveAspect("ICustomerAddressService")]
         [ValidationAspect(typeof(CustomerAddressValidator))]
         public async Task<IResult> Update(CustomerAddress customerAddress)

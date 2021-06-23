@@ -23,7 +23,7 @@ namespace DataAccess.Concrete.EntityFramework
                     join user in context.Users on basket.UserId equals user.Id
                     select new BasketDetailDto
                     {
-                BasketId = basket.Id,
+                Id = basket.Id,
                 UserId = user.Id,
                 ProductId = product.Id,
                 BrandName = brand.Name,

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Business.Abstract;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Helpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -16,6 +17,7 @@ namespace Business.Concrete
         {
             _userImageDal = userImageDal;
         }
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Add(IFormFile file, UserImage userImage)
         {
             var imageResult = FileHelper.Upload(file);
@@ -27,15 +29,21 @@ namespace Business.Concrete
             _userImageDal.AddAsync(userImage);
             return new SuccessResult("Resim eklendi");
         }
-
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Delete(UserImage userImage)
         {
             _userImageDal.DeleteAsync(userImage);
             return new SuccessResult();
         }
-
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(IFormFile file, UserImage userImage)
         {
+            var imageResult = FileHelper.Update(file,userImage.ImagePath);
+            if (!imageResult.Success)
+            {
+                return new ErrorResult(imageResult.Message);
+            }
+            userImage.ImagePath = imageResult.Message;
             _userImageDal.UpdateAsync(userImage);
             return new SuccessResult();
         }

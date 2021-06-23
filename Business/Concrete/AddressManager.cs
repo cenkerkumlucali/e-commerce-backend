@@ -23,7 +23,7 @@ namespace Business.Concrete
             _addressDal = addressDal;
         }
         [LogAspect(typeof(FileLogger))]
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin,user")]
         [CacheRemoveAspect("IAddressService.Get")]
         [ValidationAspect(typeof(AddressValidator))]
         public async Task<IResult> Add(Address address)
@@ -32,7 +32,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.AddressAdded);
         }
         [LogAspect(typeof(FileLogger))]
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin,user")]
         [CacheRemoveAspect("IAddressService.Get")]
         public async Task<IResult> Delete(Address address)
         {
@@ -40,7 +40,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.AddressDeleted);
         }
         [LogAspect(typeof(FileLogger))]
-        [SecuredOperation("admin")]
+        [SecuredOperation("admin,user")]
         [CacheRemoveAspect("IAddressService.Get")]
         [ValidationAspect(typeof(AddressValidator))]
         public async Task<IResult> Update(Address address)
@@ -48,6 +48,15 @@ namespace Business.Concrete
             await _addressDal.UpdateAsync(address);
             return new SuccessResult(Messages.AddressUpdated);
         }
+        [SecuredOperation("admin,user")]
+        [CacheRemoveAspect("IAddressService.Get")]
+        [ValidationAspect(typeof(AddressValidator))]
+        public async Task<IDataResult<long>> GetIdAdd(Address address)
+        {
+            await _addressDal.AddAsync(address);
+            return new SuccessDataResult<long>(address.Id);
+        }
+
         [CacheAspect]
         public async Task<IDataResult<Address>> GetById(int id)
         {
